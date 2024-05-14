@@ -1,15 +1,16 @@
 package co.edu.unibague.agenda2.user.infrastructure.api;
 
-import co.edu.unibague.agenda2.shared.domain.exceptions.InvalidArgumentException;
 import co.edu.unibague.agenda2.user.application.UserCreator;
 import co.edu.unibague.agenda2.user.application.UserRetriever;
 import co.edu.unibague.agenda2.user.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -23,9 +24,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody UserInput userInput) throws InvalidArgumentException {
+    public ResponseEntity<Void> createUser(@RequestBody UserInput userInput) {
         userCreator.createUser(User.userCreator(userInput.id(), userInput.email(), userInput.password(),
                 userInput.firstName(), userInput.lastName(), userInput.birthday()));
+        log.info("User created: {}", userInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -58,10 +60,5 @@ public class UserController {
                         user.getBirthday())
         ).toList();
         return ResponseEntity.ok().body(userResponses);
-    }
-
-    @GetMapping("/greeting")
-    public String greeting() {
-        return "Hello";
     }
 }

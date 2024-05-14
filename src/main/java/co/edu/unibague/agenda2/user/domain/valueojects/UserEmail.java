@@ -4,8 +4,8 @@ import co.edu.unibague.agenda2.shared.domain.exceptions.InvalidArgumentException
 
 public class UserEmail {
 
-    private static final String emailRegexPattern = "^(?=.{1,64}@)[\\\\p{L}0-9_-]+(\\\\.[\\\\p{L}0-9_-]+)*@"
-            +"[^-][\\\\p{L}0-9-]+(\\\\.[\\\\p{L}0-9-]+)*(\\\\.[\\\\p{L}]{2,})$";
+    private static final String emailRegexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+" +
+            "(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     private final String email;
 
@@ -19,7 +19,7 @@ public class UserEmail {
         return email;
     }
 
-    public void validateEmail(String email) throws InvalidArgumentException {
+    public void validateEmail(String email) {
         if (!email.matches(emailRegexPattern)){
            throw new InvalidArgumentException(email + " is not a valid email address.");
         }

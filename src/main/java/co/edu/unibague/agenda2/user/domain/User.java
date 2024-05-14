@@ -1,7 +1,6 @@
 package co.edu.unibague.agenda2.user.domain;
 
 import co.edu.unibague.agenda2.shared.domain.Id;
-import co.edu.unibague.agenda2.shared.domain.exceptions.InvalidArgumentException;
 import co.edu.unibague.agenda2.user.domain.valueojects.*;
 
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public class User {
     private final UserBirthday birthday;
 
     public User(String id, String email, String password, String firstName, String lastName,
-                String birthday) throws InvalidArgumentException {
+                String birthday) {
         this.id = new Id(id);
         this.email = new UserEmail(email);
         this.password = new UserPassword(password);
@@ -27,7 +26,7 @@ public class User {
     }
 
     public static User userCreator(String id, String email, String password, String firstName,
-                                   String lastName, String birthday) throws InvalidArgumentException {
+                                   String lastName, String birthday) {
         return new User(id, email, password, firstName, lastName, birthday);
     }
 

@@ -5,7 +5,7 @@ import co.edu.unibague.agenda2.user.domain.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface RetrieveUserUseCase {
+public interface RetrieveUser {
 
     Optional<User> getUser(String userId);
 

@@ -1,11 +1,10 @@
 package co.edu.unibague.agenda2.user.application;
 
-import co.edu.unibague.agenda2.shared.domain.exceptions.InvalidArgumentException;
-import co.edu.unibague.agenda2.user.domain.usecases.CreateUserUseCase;
 import co.edu.unibague.agenda2.user.domain.User;
 import co.edu.unibague.agenda2.user.domain.UserRepository;
+import co.edu.unibague.agenda2.user.domain.usecases.CreateUser;
 
-public class UserCreator implements CreateUserUseCase {
+public class UserCreator implements CreateUser {
 
     private final UserRepository userRepository;
 
@@ -14,7 +13,7 @@ public class UserCreator implements CreateUserUseCase {
     }
 
     @Override
-    public void createUser(User user) throws InvalidArgumentException {
+    public void createUser(User user) {
         userRepository.save(user);
     }
 }

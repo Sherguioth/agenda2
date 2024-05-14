@@ -10,20 +10,22 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "User")
+@Table(name = "\"User\"")
 public class UserEntity {
 
     @Id
     private UUID id;
 
+    @Column(name = "email", unique = true, length = 50)
     private String email;
 
+    @Column(name = "password", length = 50)
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", length = 90)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 90)
     private String lastName;
 
     @Temporal(TemporalType.DATE)
@@ -39,5 +41,4 @@ public class UserEntity {
         this.lastName = lastName;
         this.birthday = birthday;
     }
-
 }
