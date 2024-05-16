@@ -2,6 +2,7 @@ package co.edu.unibague.agenda2.user.infrastructure.api;
 
 import co.edu.unibague.agenda2.user.application.UserCreator;
 import co.edu.unibague.agenda2.user.application.UserRetriever;
+import co.edu.unibague.agenda2.user.application.UserUpdater;
 import co.edu.unibague.agenda2.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,12 @@ public class UserController {
 
     private final UserCreator userCreator;
     private final UserRetriever userRetriever;
+    private final UserUpdater userUpdater;
 
-    public UserController(UserCreator userCreator, UserRetriever userRetriever) {
+    public UserController(UserCreator userCreator, UserRetriever userRetriever, UserUpdater userUpdater) {
         this.userCreator = userCreator;
         this.userRetriever = userRetriever;
+        this.userUpdater = userUpdater;
     }
 
     @PostMapping
@@ -60,5 +63,12 @@ public class UserController {
                         user.getBirthday())
         ).toList();
         return ResponseEntity.ok().body(userResponses);
+    }
+
+    @PutMapping("/role")
+    public ResponseEntity<Void> addRoleToUser(@RequestBody UserRoleInput userRoleInput) {
+        userUpdater.addRoleToUser(userRoleInput.userId(), userRoleInput.roleName());
+        log.info("Role {} added to user {}", userRoleInput.userId(), userRoleInput.roleName());
+        return ResponseEntity.ok().build();
     }
 }

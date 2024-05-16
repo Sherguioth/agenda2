@@ -6,6 +6,7 @@ import co.edu.unibague.agenda2.role.infrastructure.entities.RoleMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PostgresRoleRepository implements RoleRepository {
@@ -26,5 +27,10 @@ public class PostgresRoleRepository implements RoleRepository {
     @Override
     public List<Role> findAll() {
         return repository.findAll().stream().map(RoleMapper::toDomainRole).toList();
+    }
+
+    @Override
+    public Optional<Role> findByName(String name) {
+        return Optional.of(RoleMapper.toDomainRole(repository.findByName(name)));
     }
 }

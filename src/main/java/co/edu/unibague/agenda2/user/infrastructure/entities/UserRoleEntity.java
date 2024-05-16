@@ -10,18 +10,18 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "User_Role")
+@Table(name = "\"User_Role\"")
 public class UserRoleEntity {
 
     @Id
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "id", updatable = false)
     private UserEntity userId;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "id", updatable = false)
     private RoleEntity roleId;
 
     public UserRoleEntity() {

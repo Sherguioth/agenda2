@@ -5,6 +5,7 @@ import co.edu.unibague.agenda2.role.application.RoleRetriever;
 import co.edu.unibague.agenda2.role.domain.RoleRepository;
 import co.edu.unibague.agenda2.user.application.UserCreator;
 import co.edu.unibague.agenda2.user.application.UserRetriever;
+import co.edu.unibague.agenda2.user.application.UserUpdater;
 import co.edu.unibague.agenda2.user.domain.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,11 @@ public class SpringConfig {
     @Bean
     public UserRetriever userRetriever(UserRepository userRepository) {
         return new UserRetriever(userRepository);
+    }
+
+    @Bean
+    public UserUpdater userUpdater(UserRepository userRepository, RoleRepository roleRepository) {
+        return new UserUpdater(userRepository, roleRepository);
     }
 
     @Bean
