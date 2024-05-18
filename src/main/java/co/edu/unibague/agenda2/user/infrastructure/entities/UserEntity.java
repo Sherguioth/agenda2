@@ -14,12 +14,13 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
+    @Column(name = "user_id")
     private UUID id;
 
     @Column(name = "email", unique = true, length = 50)
     private String email;
 
-    @Column(name = "password", length = 50)
+    @Column(name = "password", length = 60)
     private String password;
 
     @Column(name = "first_name", length = 90)

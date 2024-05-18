@@ -2,13 +2,13 @@ package co.edu.unibague.agenda2.user.domain.valueojects;
 
 import co.edu.unibague.agenda2.role.domain.Role;
 
-import java.util.List;
+import java.util.Set;
 
 public class UserRoles {
 
-    private final List<Role> roles;
+    private final Set<Role> roles;
 
-    public UserRoles(List<Role> roles) {
+    public UserRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -16,7 +16,7 @@ public class UserRoles {
         roles.add(role);
     }
 
-    public List<Role> value() {
+    public Set<Role> value() {
         return roles;
     }
 }

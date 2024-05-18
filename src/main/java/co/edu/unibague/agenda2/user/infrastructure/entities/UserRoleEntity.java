@@ -14,14 +14,15 @@ import java.util.UUID;
 public class UserRoleEntity {
 
     @Id
+    @Column(name = "user_role_id")
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "id", updatable = false)
+    @JoinColumn(name = "user_id", updatable = false)
     private UserEntity userId;
 
     @ManyToOne
-    @JoinColumn(name = "id", updatable = false)
+    @JoinColumn(name = "role_id", updatable = false)
     private RoleEntity roleId;
 
     public UserRoleEntity() {

@@ -21,8 +21,9 @@ import java.util.UUID;
 public class RoleEntity {
 
     @Id
+    @Column(name = "role_id")
     private UUID id;
 
-    @Column(name = "name", length = 25)
+    @Column(name = "name", length = 25, unique = true, updatable = false)
     private String name;
 }

@@ -26,4 +26,9 @@ public class Role {
     public String getRoleName() {
         return roleName.value();
     }
+
+    @Override
+    public String toString() {
+        return "{roleName=" + getRoleName() + '}';
+    }
 }

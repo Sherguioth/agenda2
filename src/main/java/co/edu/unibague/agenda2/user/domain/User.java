@@ -5,8 +5,8 @@ import co.edu.unibague.agenda2.shared.domain.Id;
 import co.edu.unibague.agenda2.user.domain.valueojects.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class User {
@@ -32,7 +32,7 @@ public class User {
 
     public static User userCreator(String id, String email, String password, String firstName,
                                    String lastName, String birthday) {
-        return new User(id, email, password, firstName, lastName, birthday, new UserRoles(new ArrayList<>()));
+        return new User(id, email, password, firstName, lastName, birthday, new UserRoles(new HashSet<>()));
     }
 
     public UUID getId() {
@@ -59,7 +59,7 @@ public class User {
         return birthday.value();
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles.value();
     }
 
@@ -69,5 +69,17 @@ public class User {
 
     public void updatePassword(String newPassword) {
         this.password = new UserPassword(newPassword);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id.value() +
+                ", email=" + email.value() +
+                ", password=" + password.value() +
+                ", firstName=" + firstName.value() +
+                ", lastName=" + lastName.value() +
+                ", birthday=" + birthday.value() +
+                '}';
     }
 }

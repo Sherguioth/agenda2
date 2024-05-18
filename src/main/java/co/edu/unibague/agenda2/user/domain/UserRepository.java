@@ -12,6 +12,8 @@ public interface UserRepository {
 
     Optional<User> findById(Id id);
 
+    Optional<User> findByEmail(String email);
+
     List<User> findAll();
 
     void addRoleToUser(User user, Role role);
