@@ -1,5 +1,6 @@
 package co.edu.unibague.agenda2.shared.infrastructure.security;
 
+import co.edu.unibague.agenda2.shared.infrastructure.utils.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,25 +16,35 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
+    private final JwtUtils jwtUtils;
+
+    public SpringSecurityConfig(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(AbstractHttpConfigurer::disable)
+        httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     // Public endpoints
+                    http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
 
                     // Private endpoints
                     http.requestMatchers(HttpMethod.GET, "/auth/hello").hasRole("DEVELOPER");
 
                     // Anyone else endpoint
                     http.anyRequest().denyAll();
-                });
+                })
+                .addFilterBefore(new JwtValidatorFilter(jwtUtils), BasicAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
