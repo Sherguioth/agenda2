@@ -30,8 +30,8 @@ public class User {
         this.roles = roles;
     }
 
-    public static User userCreator(String id, String email, String password, String firstName,
-                                   String lastName, String birthday) {
+    public static User create(String id, String email, String password, String firstName,
+                              String lastName, String birthday) {
         return new User(id, email, password, firstName, lastName, birthday, new UserRoles(new HashSet<>()));
     }
 

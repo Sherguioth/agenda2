@@ -18,9 +18,4 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok().body(this.userDetailService.loginUser(authRequest));
     }
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello World";
-    }
 }

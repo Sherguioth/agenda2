@@ -3,6 +3,9 @@ package co.edu.unibague.agenda2.shared.infrastructure.config;
 import co.edu.unibague.agenda2.role.application.RoleCreator;
 import co.edu.unibague.agenda2.role.application.RoleRetriever;
 import co.edu.unibague.agenda2.role.domain.RoleRepository;
+import co.edu.unibague.agenda2.schedule.application.ScheduleCreator;
+import co.edu.unibague.agenda2.schedule.application.ScheduleRetriever;
+import co.edu.unibague.agenda2.schedule.domain.ScheduleRepository;
 import co.edu.unibague.agenda2.user.application.UserCreator;
 import co.edu.unibague.agenda2.user.application.UserRetriever;
 import co.edu.unibague.agenda2.user.application.UserUpdater;
@@ -36,5 +39,15 @@ public class SpringBeansConfig {
     @Bean
     public RoleRetriever roleRetriever(RoleRepository roleRepository) {
         return new RoleRetriever(roleRepository);
+    }
+
+    @Bean
+    public ScheduleCreator scheduleCreator(ScheduleRepository scheduleRepository) {
+        return new ScheduleCreator(scheduleRepository);
+    }
+
+    @Bean
+    public ScheduleRetriever scheduleRetriever(ScheduleRepository scheduleRepository) {
+        return new ScheduleRetriever(scheduleRepository);
     }
 }

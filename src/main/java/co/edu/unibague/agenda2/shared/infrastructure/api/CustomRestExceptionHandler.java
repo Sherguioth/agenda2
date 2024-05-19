@@ -12,6 +12,7 @@ public class CustomRestExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<String> exception(RuntimeException ex) {
         log.error(ex.getMessage());
+        ex.printStackTrace();
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }

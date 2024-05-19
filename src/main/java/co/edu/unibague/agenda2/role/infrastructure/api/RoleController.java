@@ -1,8 +1,8 @@
 package co.edu.unibague.agenda2.role.infrastructure.api;
 
-import co.edu.unibague.agenda2.role.application.RoleCreator;
-import co.edu.unibague.agenda2.role.application.RoleRetriever;
 import co.edu.unibague.agenda2.role.domain.Role;
+import co.edu.unibague.agenda2.role.domain.usecases.CreateRole;
+import co.edu.unibague.agenda2.role.domain.usecases.RetrieveRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +15,17 @@ import java.util.List;
 @RequestMapping("/api/roles")
 public class RoleController {
 
-    private final RoleCreator roleCreator;
-    private final RoleRetriever roleRetriever;
+    private final CreateRole roleCreator;
+    private final RetrieveRole roleRetriever;
 
-    public RoleController(RoleCreator roleCreator, RoleRetriever roleRetriever) {
+    public RoleController(CreateRole roleCreator, RetrieveRole roleRetriever) {
         this.roleCreator = roleCreator;
         this.roleRetriever = roleRetriever;
     }
 
     @PostMapping
     public ResponseEntity<Void> createRole(@RequestBody RoleInput roleInput) {
-        roleCreator.createRole(Role.createRole(roleInput.id(), roleInput.name()));
+        roleCreator.createRole(Role.create(roleInput.id(), roleInput.name()));
         log.info("Role created: {}", roleInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

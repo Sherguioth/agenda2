@@ -1,9 +1,9 @@
 package co.edu.unibague.agenda2.user.infrastructure.api;
 
-import co.edu.unibague.agenda2.user.application.UserCreator;
-import co.edu.unibague.agenda2.user.application.UserRetriever;
-import co.edu.unibague.agenda2.user.application.UserUpdater;
 import co.edu.unibague.agenda2.user.domain.User;
+import co.edu.unibague.agenda2.user.domain.usecases.CreateUser;
+import co.edu.unibague.agenda2.user.domain.usecases.RetrieveUser;
+import co.edu.unibague.agenda2.user.domain.usecases.UpdateUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserCreator userCreator;
-    private final UserRetriever userRetriever;
-    private final UserUpdater userUpdater;
+    private final CreateUser userCreator;
+    private final RetrieveUser userRetriever;
+    private final UpdateUser userUpdater;
 
-    public UserController(UserCreator userCreator, UserRetriever userRetriever, UserUpdater userUpdater) {
+    public UserController(CreateUser userCreator, RetrieveUser userRetriever, UpdateUser userUpdater) {
         this.userCreator = userCreator;
         this.userRetriever = userRetriever;
         this.userUpdater = userUpdater;
@@ -28,7 +28,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody UserInput userInput) {
-        userCreator.createUser(User.userCreator(userInput.id(), userInput.email(), userInput.password(),
+        userCreator.createUser(User.create(userInput.id(), userInput.email(), userInput.password(),
                 userInput.firstName(), userInput.lastName(), userInput.birthday()));
         log.info("User created: {}", userInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
