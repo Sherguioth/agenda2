@@ -1,11 +1,17 @@
 package co.edu.unibague.agenda2.shared.infrastructure.config;
 
+import co.edu.unibague.agenda2.place.application.PlaceCreator;
+import co.edu.unibague.agenda2.place.application.PlaceRetriever;
+import co.edu.unibague.agenda2.place.domain.PlaceRepository;
 import co.edu.unibague.agenda2.role.application.RoleCreator;
 import co.edu.unibague.agenda2.role.application.RoleRetriever;
 import co.edu.unibague.agenda2.role.domain.RoleRepository;
 import co.edu.unibague.agenda2.schedule.application.ScheduleCreator;
 import co.edu.unibague.agenda2.schedule.application.ScheduleRetriever;
 import co.edu.unibague.agenda2.schedule.domain.ScheduleRepository;
+import co.edu.unibague.agenda2.session.application.SessionCreator;
+import co.edu.unibague.agenda2.session.application.SessionRetriever;
+import co.edu.unibague.agenda2.session.domain.SessionRepository;
 import co.edu.unibague.agenda2.user.application.UserCreator;
 import co.edu.unibague.agenda2.user.application.UserRetriever;
 import co.edu.unibague.agenda2.user.application.UserUpdater;
@@ -49,5 +55,25 @@ public class SpringBeansConfig {
     @Bean
     public ScheduleRetriever scheduleRetriever(ScheduleRepository scheduleRepository) {
         return new ScheduleRetriever(scheduleRepository);
+    }
+
+    @Bean
+    public PlaceCreator placeCreator(PlaceRepository placeRepository) {
+        return new PlaceCreator(placeRepository);
+    }
+
+    @Bean
+    public PlaceRetriever placeRetriever(PlaceRepository placeRepository) {
+        return new PlaceRetriever(placeRepository);
+    }
+
+    @Bean
+    public SessionCreator sessionCreator(SessionRepository sessionRepository) {
+        return new SessionCreator(sessionRepository);
+    }
+
+    @Bean
+    public SessionRetriever sessionRetriever(SessionRepository sessionRepository) {
+        return new SessionRetriever(sessionRepository);
     }
 }

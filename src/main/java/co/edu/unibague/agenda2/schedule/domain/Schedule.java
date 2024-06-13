@@ -7,6 +7,7 @@ import co.edu.unibague.agenda2.user.domain.User;
 import java.util.UUID;
 
 public class Schedule {
+
     private final Id id;
     private final ScheduleTitle title;
     private final User user;

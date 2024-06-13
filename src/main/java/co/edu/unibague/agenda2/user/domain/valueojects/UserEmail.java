@@ -11,7 +11,6 @@ public class UserEmail {
 
     public UserEmail(String email) throws InvalidArgumentException {
         this.validateEmail(email);
-
         this.email = email;
     }
 
