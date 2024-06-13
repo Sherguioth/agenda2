@@ -1,5 +1,8 @@
 package co.edu.unibague.agenda2.shared.infrastructure.config;
 
+import co.edu.unibague.agenda2.appointment.application.AppointmentCreator;
+import co.edu.unibague.agenda2.appointment.application.AppointmentRetriever;
+import co.edu.unibague.agenda2.appointment.domain.AppointmentRepository;
 import co.edu.unibague.agenda2.place.application.PlaceCreator;
 import co.edu.unibague.agenda2.place.application.PlaceRetriever;
 import co.edu.unibague.agenda2.place.domain.PlaceRepository;
@@ -75,5 +78,15 @@ public class SpringBeansConfig {
     @Bean
     public SessionRetriever sessionRetriever(SessionRepository sessionRepository) {
         return new SessionRetriever(sessionRepository);
+    }
+
+    @Bean
+    public AppointmentCreator appointmentCreator(AppointmentRepository appointmentRepository) {
+        return new AppointmentCreator(appointmentRepository);
+    }
+
+    @Bean
+    public AppointmentRetriever appointmentRetriever(AppointmentRepository appointmentRepository) {
+        return new AppointmentRetriever(appointmentRepository);
     }
 }

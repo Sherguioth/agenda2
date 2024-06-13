@@ -51,7 +51,8 @@ public class SpringSecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/places").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
                     http.requestMatchers(HttpMethod.GET, "/api/sessions").authenticated();
                     http.requestMatchers(HttpMethod.POST, "/api/sessions").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
-
+                    http.requestMatchers(HttpMethod.GET, "/api/appointments").authenticated();
+                    http.requestMatchers(HttpMethod.POST, "/api/appointments").authenticated();
 
                     // Anyone else endpoint
                     http.anyRequest().denyAll();
