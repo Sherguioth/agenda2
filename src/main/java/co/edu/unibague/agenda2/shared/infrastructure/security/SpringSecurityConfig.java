@@ -37,6 +37,9 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(http -> {
                     // Public endpoints
                     http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll();
 
                     // Private endpoints
                     http.requestMatchers(HttpMethod.POST, "/api/users").hasAnyRole("DEVELOPER", "ADMIN");

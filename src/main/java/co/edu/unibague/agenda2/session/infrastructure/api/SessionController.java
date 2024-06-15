@@ -37,6 +37,7 @@ public class SessionController {
         var place = placeRetriever.getPlace(sessionInput.placeId()).orElseThrow();
         sessionCreator.createSession(Session.create(sessionInput.id(), sessionInput.description(),
                 LocalDateTime.parse(sessionInput.dateTime()), schedule, place));
+        log.info("Session created: {}", sessionInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
