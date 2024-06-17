@@ -23,7 +23,7 @@ import org.springframework.http.HttpHeaders;
                 ),
                 @Server(
                         description = "Prod server",
-                        url = "https://railway.com/"
+                        url = "https://agenda2.up.railway.app/"
                 )
         },
         security = @SecurityRequirement(

@@ -21,9 +21,21 @@ import co.edu.unibague.agenda2.user.application.UserUpdater;
 import co.edu.unibague.agenda2.user.domain.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SpringBeansConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("GET", "POST", "PUT", "DELETE");
+            }
+        };
+    }
 
     @Bean
     public UserCreator userCreator(UserRepository userRepository) {
