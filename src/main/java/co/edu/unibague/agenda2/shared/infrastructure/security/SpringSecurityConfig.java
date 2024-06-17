@@ -36,6 +36,7 @@ public class SpringSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     // Public endpoints
+                    http.requestMatchers(HttpMethod.GET, "/").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();

@@ -1,8 +1,8 @@
 security:
   jwt:
-    user: AUTH0JWT-AGENDA2
-    key: d634c829020da7018118ed0ef55183246446bfa98b8e65e90c444bb7061c60d6
+    user: ${JWT_USER}
+    key: ${JWT_KEY}
 
 spring:
   profiles:
-    active: dev
+    active: prod
