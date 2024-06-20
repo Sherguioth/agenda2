@@ -35,7 +35,7 @@ public class AppointmentController {
     public ResponseEntity<Void> createAppointment(@RequestBody AppointmentInput appointmentInput) {
         var user = userRetriever.getUser(appointmentInput.userId()).orElseThrow();
         var session = sessionRetriever.getSession(appointmentInput.sessionId()).orElseThrow();
-        appointmentCreator.save(Appointment.create(appointmentInput.id(), appointmentInput.description(), user, session));
+        appointmentCreator.createAppointment(Appointment.create(appointmentInput.id(), appointmentInput.description(), user, session));
         log.info("Appointment created: {}", appointmentInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

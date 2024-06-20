@@ -13,7 +13,7 @@ public class AppointmentCreator implements CreateAppointment {
     }
 
     @Override
-    public void save(Appointment appointment) {
+    public void createAppointment(Appointment appointment) {
         appointmentRepository.save(appointment);
     }
 }

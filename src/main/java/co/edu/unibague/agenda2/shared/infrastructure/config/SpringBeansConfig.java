@@ -3,6 +3,12 @@ package co.edu.unibague.agenda2.shared.infrastructure.config;
 import co.edu.unibague.agenda2.appointment.application.AppointmentCreator;
 import co.edu.unibague.agenda2.appointment.application.AppointmentRetriever;
 import co.edu.unibague.agenda2.appointment.domain.AppointmentRepository;
+import co.edu.unibague.agenda2.category.application.CategoryCreator;
+import co.edu.unibague.agenda2.category.application.CategoryRetriever;
+import co.edu.unibague.agenda2.category.application.SubCategoryCreator;
+import co.edu.unibague.agenda2.category.application.SubCategoryRetriever;
+import co.edu.unibague.agenda2.category.domain.CategoryRepository;
+import co.edu.unibague.agenda2.category.domain.SubCategoryRepository;
 import co.edu.unibague.agenda2.place.application.PlaceCreator;
 import co.edu.unibague.agenda2.place.application.PlaceRetriever;
 import co.edu.unibague.agenda2.place.domain.PlaceRepository;
@@ -100,5 +106,25 @@ public class SpringBeansConfig {
     @Bean
     public AppointmentRetriever appointmentRetriever(AppointmentRepository appointmentRepository) {
         return new AppointmentRetriever(appointmentRepository);
+    }
+
+    @Bean
+    public CategoryCreator categoryCreator(CategoryRepository categoryRepository) {
+        return new CategoryCreator(categoryRepository);
+    }
+
+    @Bean
+    public CategoryRetriever categoryRetriever(CategoryRepository categoryRepository) {
+        return new CategoryRetriever(categoryRepository);
+    }
+
+    @Bean
+    public SubCategoryCreator subCategoryCreator(SubCategoryRepository subCategoryRepository) {
+        return new SubCategoryCreator(subCategoryRepository);
+    }
+
+    @Bean
+    public SubCategoryRetriever subCategoryRetriever(SubCategoryRepository subCategoryRepository) {
+        return new SubCategoryRetriever(subCategoryRepository);
     }
 }
