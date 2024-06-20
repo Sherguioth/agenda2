@@ -6,12 +6,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/${DB_NAME}
     username: postgres
     password: postgres
-    driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate:
-      ddl-auto: validate
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate:

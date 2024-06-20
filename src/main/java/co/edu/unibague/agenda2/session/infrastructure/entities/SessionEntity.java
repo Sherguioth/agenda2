@@ -30,6 +30,9 @@ public class SessionEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateTime;
 
+    @Column(name = "users_limit")
+    private int usersLimit;
+
     @ManyToOne
     @JoinColumn(name = "schedule_id", updatable = false)
     private ScheduleEntity schedule;

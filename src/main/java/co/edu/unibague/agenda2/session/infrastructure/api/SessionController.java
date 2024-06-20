@@ -36,7 +36,7 @@ public class SessionController {
         var schedule = scheduleRetriever.getSchedule(sessionInput.scheduleId()).orElseThrow();
         var place = placeRetriever.getPlace(sessionInput.placeId()).orElseThrow();
         sessionCreator.createSession(Session.create(sessionInput.id(), sessionInput.description(),
-                LocalDateTime.parse(sessionInput.dateTime()), schedule, place));
+                LocalDateTime.parse(sessionInput.dateTime()), sessionInput.usersLimit(), schedule, place));
         log.info("Session created: {}", sessionInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -49,6 +49,7 @@ public class SessionController {
                         session.getId(),
                         session.getSessionDescription(),
                         session.getSessionDateTime(),
+                        session.getUsersLimit(),
                         session.getSchedule().getId(),
                         session.getSchedule().getTitle(),
                         session.getPlace().getId(),

@@ -13,6 +13,7 @@ public class SessionMapper {
                 session.getId(),
                 session.getSessionDescription(),
                 session.getSessionDateTime(),
+                session.getUsersLimit(),
                 ScheduleMapper.toScheduleEntity(session.getSchedule()),
                 PlaceMapper.toPlaceEntity(session.getPlace())
         );
@@ -23,6 +24,7 @@ public class SessionMapper {
                 sessionEntity.getId().toString(),
                 sessionEntity.getDescription(),
                 sessionEntity.getDateTime(),
+                sessionEntity.getUsersLimit(),
                 ScheduleMapper.toDomainSchedule(sessionEntity.getSchedule()),
                 PlaceMapper.toDomainPlace(sessionEntity.getPlace())
         );
