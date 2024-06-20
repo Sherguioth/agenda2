@@ -46,6 +46,7 @@ public class UserController {
                     user.getLastName(),
                     user.getBirthday()
             );
+            log.info("User retrieved: {} {}", user.getFirstName(), user.getLastName());
             return ResponseEntity.ok().body(userResponse);
         }).orElse(ResponseEntity.notFound().build());
     }
@@ -62,6 +63,7 @@ public class UserController {
                         user.getLastName(),
                         user.getBirthday())
         ).toList();
+        log.info("Users retrieved: {}", userResponses.size());
         return ResponseEntity.ok().body(userResponses);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -39,11 +40,13 @@ public class ScheduleController {
     @GetMapping
     public ResponseEntity<List<ScheduleResponse>> getSchedules() {
         List<Schedule> schedules = scheduleRetriever.getAllSchedules();
-        return ResponseEntity.ok().body(schedules.stream().map(
+        List<ScheduleResponse> scheduleResponses = schedules.stream().map(
                 schedule -> new ScheduleResponse(
                         schedule.getId(),
                         schedule.getTitle(),
                         schedule.getProfessional().getId())
-        ).toList());
+        ).toList();
+        log.info("Retrieved Schedules: {}", scheduleResponses.size());
+        return ResponseEntity.ok().body(scheduleResponses);
     }
 }

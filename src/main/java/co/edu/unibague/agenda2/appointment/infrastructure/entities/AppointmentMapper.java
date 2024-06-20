@@ -22,8 +22,8 @@ public class AppointmentMapper {
         return Appointment.create(
                 appointmentEntity.getId().toString(),
                 appointmentEntity.getDescription(),
-                UserMapper.toDomainUser(appointmentEntity.getUserId()),
-                SessionMapper.toDomainSession(appointmentEntity.getSessionId())
+                UserMapper.toDomainUser(appointmentEntity.getUserEntity()),
+                SessionMapper.toDomainSession(appointmentEntity.getSessionEntity())
         );
     }
 }

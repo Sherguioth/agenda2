@@ -12,26 +12,26 @@ import java.util.Optional;
 @Repository
 public class PostgresCategoryRepository implements CategoryRepository {
 
-    private final JpaCategoryRepository jpaCategoryRepository;
+    private final JpaCategoryRepository jpaRepository;
 
-    public PostgresCategoryRepository(JpaCategoryRepository jpaCategoryRepository) {
-        this.jpaCategoryRepository = jpaCategoryRepository;
+    public PostgresCategoryRepository(JpaCategoryRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
     }
 
     @Override
     public void save(Category category) {
         var categoryEntity = CategoryMapper.toCategoryEntity(category);
-        var savedCategoryEntity = jpaCategoryRepository.save(categoryEntity);
+        var savedCategoryEntity = jpaRepository.save(categoryEntity);
         CategoryMapper.toDomainCategory(savedCategoryEntity);
     }
 
     @Override
     public List<Category> findAll() {
-        return jpaCategoryRepository.findAll().stream().map(CategoryMapper::toDomainCategory).toList();
+        return jpaRepository.findAll().stream().map(CategoryMapper::toDomainCategory).toList();
     }
 
     @Override
     public Optional<Category> findById(Id id) {
-        return jpaCategoryRepository.findById(id.value()).map(CategoryMapper::toDomainCategory);
+        return jpaRepository.findById(id.value()).map(CategoryMapper::toDomainCategory);
     }
 }

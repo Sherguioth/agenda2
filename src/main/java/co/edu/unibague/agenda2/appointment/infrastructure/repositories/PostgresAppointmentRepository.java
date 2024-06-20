@@ -10,21 +10,21 @@ import java.util.List;
 @Repository
 public class PostgresAppointmentRepository implements AppointmentRepository {
 
-    private final JpaAppointmentRepository repository;
+    private final JpaAppointmentRepository jpaRepository;
 
     public PostgresAppointmentRepository(JpaAppointmentRepository repository) {
-        this.repository = repository;
+        this.jpaRepository = repository;
     }
 
     @Override
     public void save(Appointment appointment) {
         var appointmentEntity = AppointmentMapper.toAppointmentEntity(appointment);
-        var appointmentSaved = repository.save(appointmentEntity);
+        var appointmentSaved = jpaRepository.save(appointmentEntity);
         AppointmentMapper.toDomainAppointment(appointmentSaved);
     }
 
     @Override
     public List<Appointment> findAll() {
-        return repository.findAll().stream().map(AppointmentMapper::toDomainAppointment).toList();
+        return jpaRepository.findAll().stream().map(AppointmentMapper::toDomainAppointment).toList();
     }
 }

@@ -6,14 +6,14 @@ import co.edu.unibague.agenda2.role.domain.usecases.CreateRole;
 
 public class RoleCreator implements CreateRole {
 
-    private final RoleRepository roleRepository;
+    private final RoleRepository repository;
 
-    public RoleCreator(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public RoleCreator(RoleRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public void createRole(Role role) {
-        roleRepository.save(role);
+        repository.save(role);
     }
 }

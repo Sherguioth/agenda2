@@ -23,10 +23,9 @@ public class UserRoleEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false)
-    private UserEntity userId;
+    private UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(name = "role_id", updatable = false)
-    private RoleEntity roleId;
-
+    private RoleEntity roleEntity;
 }

@@ -10,21 +10,21 @@ import java.util.List;
 @Repository
 public class PostgresSubCategoryRepository implements SubCategoryRepository {
 
-    private final JpaSubCategoryRepository jpaSubCategoryRepository;
+    private final JpaSubCategoryRepository jpaRepository;
 
-    public PostgresSubCategoryRepository(JpaSubCategoryRepository jpaSubCategoryRepository) {
-        this.jpaSubCategoryRepository = jpaSubCategoryRepository;
+    public PostgresSubCategoryRepository(JpaSubCategoryRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
     }
 
     @Override
     public void save(SubCategory subCategory) {
         var subCategoryEntity = SubCategoryMapper.toSubCategoryEntity(subCategory);
-        var savedSubCategoryEntity = jpaSubCategoryRepository.save(subCategoryEntity);
+        var savedSubCategoryEntity = jpaRepository.save(subCategoryEntity);
         SubCategoryMapper.toDomainSubCategory(savedSubCategoryEntity);
     }
 
     @Override
     public List<SubCategory> findAll() {
-        return jpaSubCategoryRepository.findAll().stream().map(SubCategoryMapper::toDomainSubCategory).toList();
+        return jpaRepository.findAll().stream().map(SubCategoryMapper::toDomainSubCategory).toList();
     }
 }

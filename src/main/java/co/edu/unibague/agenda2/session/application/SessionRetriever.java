@@ -10,19 +10,19 @@ import java.util.Optional;
 
 public class SessionRetriever implements RetrieveSession {
 
-    private final SessionRepository sessionRepository;
+    private final SessionRepository repository;
 
-    public SessionRetriever(SessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
+    public SessionRetriever(SessionRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Session> getAllSessions() {
-        return sessionRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public Optional<Session> getSession(String sessionId) {
-        return sessionRepository.getSession(new Id(sessionId));
+        return repository.getSession(new Id(sessionId));
     }
 }

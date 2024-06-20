@@ -8,16 +8,16 @@ import java.util.UUID;
 public class SubCategory {
     private final Id subCategoryId;
     private final CategoryName subCategoryName;
-    private final Category categoryFather;
+    private final Category father;
 
-    public SubCategory(String subCategoryId, String subCategoryName, Category categoryFather) {
-        this.subCategoryId = new Id(subCategoryId);
-        this.subCategoryName = new CategoryName(subCategoryName);
-        this.categoryFather = categoryFather;
+    public SubCategory(String id, String name, Category category) {
+        this.subCategoryId = new Id(id);
+        this.subCategoryName = new CategoryName(name);
+        this.father = category;
     }
 
-    public static SubCategory createSubCategory(String subCategoryId, String subCategoryName, Category categoryFather) {
-        return new SubCategory(subCategoryId, subCategoryName, categoryFather);
+    public static SubCategory createSubCategory(String id, String name, Category category) {
+        return new SubCategory(id, name, category);
     }
 
     public UUID getId() {
@@ -28,7 +28,7 @@ public class SubCategory {
         return subCategoryName.value();
     }
 
-    public Category getFather() {
-        return categoryFather;
+    public Category getCategory() {
+        return father;
     }
 }

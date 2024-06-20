@@ -13,27 +13,27 @@ import java.util.Optional;
 @Repository
 public class PostgresPlaceRepository implements PlaceRepository {
 
-    private final JpaPlaceRepository repository;
+    private final JpaPlaceRepository jpaPlaceRepository;
 
-    public PostgresPlaceRepository(JpaPlaceRepository repository) {
-        this.repository = repository;
+    public PostgresPlaceRepository(JpaPlaceRepository jpaPlaceRepository) {
+        this.jpaPlaceRepository = jpaPlaceRepository;
     }
 
 
     @Override
     public void save(Place place) {
         var placeEntity = PlaceMapper.toPlaceEntity(place);
-        var savedPlace = repository.save(placeEntity);
+        var savedPlace = jpaPlaceRepository.save(placeEntity);
         PlaceMapper.toDomainPlace(savedPlace);
     }
 
     @Override
     public List<Place> findAll() {
-        return repository.findAll().stream().map(PlaceMapper::toDomainPlace).toList();
+        return jpaPlaceRepository.findAll().stream().map(PlaceMapper::toDomainPlace).toList();
     }
 
     @Override
     public Optional<Place> findById(Id id) {
-        return repository.findById(id.value()).map(PlaceMapper::toDomainPlace);
+        return jpaPlaceRepository.findById(id.value()).map(PlaceMapper::toDomainPlace);
     }
 }

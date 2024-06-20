@@ -20,36 +20,36 @@ import java.util.UUID;
 @Repository
 public class PostgresUserRepository implements UserRepository {
 
-    private final JpaUserRepository userRepository;
-    private final JpaUserRoleRepository userRoleRepository;
-    private final JpaRoleRepository roleRepository;
+    private final JpaUserRepository jpaUserRepository;
+    private final JpaUserRoleRepository jpaUserRoleRepository;
+    private final JpaRoleRepository jpaRoleRepository;
 
-    public PostgresUserRepository(JpaUserRepository userRepository, JpaUserRoleRepository userRoleRepository, JpaRoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
-        this.roleRepository = roleRepository;
+    public PostgresUserRepository(JpaUserRepository jpaUserRepository, JpaUserRoleRepository jpaUserRoleRepository, JpaRoleRepository jpaRoleRepository) {
+        this.jpaUserRepository = jpaUserRepository;
+        this.jpaUserRoleRepository = jpaUserRoleRepository;
+        this.jpaRoleRepository = jpaRoleRepository;
     }
 
     @Override
     public void save(User user) {
         var userEntity = UserMapper.toUserEntity(user);
-        var sevedUserEntity = userRepository.save(userEntity);
+        var sevedUserEntity = jpaUserRepository.save(userEntity);
         UserMapper.toDomainUser(sevedUserEntity);
     }
 
     @Override
     public Optional<User> findById(Id id) {
-        return userRepository.findById(id.value()).map(UserMapper::toDomainUser);
+        return jpaUserRepository.findById(id.value()).map(UserMapper::toDomainUser);
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        var userEntity = userRepository.findByEmail(email)
+        var userEntity = jpaUserRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with " + email + " not found"));
         var user = UserMapper.toDomainUser(userEntity);
-        List<UserRoleEntity> userRoleEntities = userRoleRepository.findAllByUserId(userEntity);
+        List<UserRoleEntity> userRoleEntities = jpaUserRoleRepository.findAllByUserEntity(userEntity);
         userRoleEntities.forEach(userRoleEntity -> {
-            var roleEntity = roleRepository.findById(userRoleEntity.getRoleId().getId()).orElseThrow();
+            var roleEntity = jpaRoleRepository.findById(userRoleEntity.getRoleEntity().getId()).orElseThrow();
             user.addRole(RoleMapper.toDomainRole(roleEntity));
         });
         return Optional.of(user);
@@ -57,7 +57,7 @@ public class PostgresUserRepository implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll().stream().map(UserMapper::toDomainUser).toList();
+        return jpaUserRepository.findAll().stream().map(UserMapper::toDomainUser).toList();
     }
 
     @Override
@@ -65,6 +65,6 @@ public class PostgresUserRepository implements UserRepository {
         var userEntity = UserMapper.toUserEntity(user);
         var roleEntity = RoleMapper.toRoleEntity(role);
         var userRoleEntity = new UserRoleEntity(UUID.randomUUID(), userEntity, roleEntity);
-        userRoleRepository.save(userRoleEntity);
+        jpaUserRoleRepository.save(userRoleEntity);
     }
 }

@@ -25,9 +25,9 @@ public class AppointmentEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false)
-    private UserEntity userId;
+    private UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(name = "session_id", updatable = false)
-    private SessionEntity sessionId;
+    private SessionEntity sessionEntity;
 }

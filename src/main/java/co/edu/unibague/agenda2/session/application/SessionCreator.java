@@ -6,15 +6,15 @@ import co.edu.unibague.agenda2.session.domain.usecases.CreateSession;
 
 public class SessionCreator implements CreateSession {
 
-    private final SessionRepository sessionRepository;
+    private final SessionRepository repository;
 
 
-    public SessionCreator(SessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
+    public SessionCreator(SessionRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public void createSession(Session session) {
-        sessionRepository.save(session);
+        repository.save(session);
     }
 }

@@ -51,7 +51,7 @@ public class AppointmentController {
                         appointment.getSession().getId()
                 )
         ).toList();
-
+        log.info("Appointments retrieved: {}", appointmentResponses.size());
         return ResponseEntity.ok().body(appointmentResponses);
     }
 }

@@ -8,14 +8,14 @@ import java.util.List;
 
 public class RoleRetriever implements RetrieveRole {
 
-    private final RoleRepository roleRepository;
+    private final RoleRepository repository;
 
-    public RoleRetriever(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public RoleRetriever(RoleRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+        return repository.findAll();
     }
 }

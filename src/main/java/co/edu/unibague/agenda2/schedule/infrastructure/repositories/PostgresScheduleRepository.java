@@ -8,31 +8,30 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public class PostgresScheduleRepository implements ScheduleRepository {
 
-    private final JpaScheduleRepository scheduleRepository;
+    private final JpaScheduleRepository jpaRepository;
 
-    public PostgresScheduleRepository(JpaScheduleRepository scheduleRepository) {
-        this.scheduleRepository = scheduleRepository;
+    public PostgresScheduleRepository(JpaScheduleRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
     }
 
     @Override
     public void save(Schedule schedule) {
         var scheduleEntity = ScheduleMapper.toScheduleEntity(schedule);
-        scheduleRepository.save(scheduleEntity);
+        jpaRepository.save(scheduleEntity);
         ScheduleMapper.toScheduleEntity(schedule);
     }
 
     @Override
     public List<Schedule> findAll() {
-        return scheduleRepository.findAll().stream().map(ScheduleMapper::toDomainSchedule).toList();
+        return jpaRepository.findAll().stream().map(ScheduleMapper::toDomainSchedule).toList();
     }
 
     @Override
     public Optional<Schedule> findById(Id id) {
-        return scheduleRepository.findById(id.value()).map(ScheduleMapper::toDomainSchedule);
+        return jpaRepository.findById(id.value()).map(ScheduleMapper::toDomainSchedule);
     }
 }

@@ -25,5 +25,5 @@ public class SubCategoryEntity {
 
     @ManyToOne
     @JoinColumn(name = "category_id", updatable = false)
-    private CategoryEntity categoryFather;
+    private CategoryEntity categoryEntity;
 }

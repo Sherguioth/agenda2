@@ -8,14 +8,14 @@ import java.util.List;
 
 public class AppointmentRetriever implements RetrieveAppointment {
 
-    private final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository repository;
 
-    public AppointmentRetriever(AppointmentRepository appointmentRepository) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentRetriever(AppointmentRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+        return repository.findAll();
     }
 }

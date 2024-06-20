@@ -2,13 +2,17 @@ package co.edu.unibague.agenda2.schedule.infrastructure.entities;
 
 import co.edu.unibague.agenda2.user.infrastructure.entities.UserEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "\"Schedule\"")
 public class ScheduleEntity {
@@ -22,14 +26,5 @@ public class ScheduleEntity {
 
     @ManyToOne
     @JoinColumn(name = "professional_id")
-    private UserEntity userId;
-
-    public ScheduleEntity() {
-    }
-
-    public ScheduleEntity(UUID id, String title, UserEntity userId) {
-        this.id = id;
-        this.title = title;
-        this.userId = userId;
-    }
+    private UserEntity userEntity;
 }

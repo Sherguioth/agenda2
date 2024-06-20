@@ -10,19 +10,19 @@ import java.util.Optional;
 
 public class UserRetriever implements RetrieveUser {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
-    public UserRetriever(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserRetriever(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Optional<User> getUser(String userId) {
-        return userRepository.findById(new Id(userId));
+        return repository.findById(new Id(userId));
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return repository.findAll();
     }
 }

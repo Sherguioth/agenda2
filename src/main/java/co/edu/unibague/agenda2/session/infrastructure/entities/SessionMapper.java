@@ -11,8 +11,8 @@ public class SessionMapper {
     public static SessionEntity toSessionEntity(Session session) {
         return new SessionEntity(
                 session.getId(),
-                session.getSessionDescription(),
-                session.getSessionDateTime(),
+                session.getDescription(),
+                session.getDateTime(),
                 session.getUsersLimit(),
                 ScheduleMapper.toScheduleEntity(session.getSchedule()),
                 PlaceMapper.toPlaceEntity(session.getPlace())

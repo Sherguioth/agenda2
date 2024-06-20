@@ -9,7 +9,7 @@ public class RoleMapper {
     public static RoleEntity toRoleEntity(Role role) {
         return new RoleEntity(
                 role.getId(),
-                role.getRoleName()
+                role.getName()
         );
     }
 

@@ -41,8 +41,8 @@ public class SubCategoryController {
                 subCategory -> new SubCategoryResponse(
                         subCategory.getId(),
                         subCategory.getName(),
-                        subCategory.getFather().getId(),
-                        subCategory.getFather().getName()
+                        subCategory.getCategory().getId(),
+                        subCategory.getCategory().getName()
                 )
         ).toList();
         log.info("Sub categories retrieved: {}", subCategoryResponses.size());

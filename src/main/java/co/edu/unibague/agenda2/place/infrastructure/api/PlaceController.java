@@ -35,6 +35,7 @@ public class PlaceController {
         List<Place> placesList = placeRetriever.getAllPlaces();
         List<PlaceResponse> placeResponses = placesList.stream().map(
                 place -> new PlaceResponse(place.getId(), place.getPlaceName(), place.getPlaceAddress())).toList();
+        log.info("Places retrieved: {}", placeResponses.size());
         return ResponseEntity.ok().body(placeResponses);
     }
 }

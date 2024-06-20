@@ -9,13 +9,13 @@ public class Category {
     private final Id categoryId;
     private final CategoryName categoryName;
 
-    public Category(String  categoryId, String categoryName) {
-        this.categoryId = new Id(categoryId);
-        this.categoryName = new CategoryName(categoryName);
+    public Category(String  id, String name) {
+        this.categoryId = new Id(id);
+        this.categoryName = new CategoryName(name);
     }
 
-    public static Category createCategory(String categoryId, String categoryName) {
-        return new Category(categoryId, categoryName);
+    public static Category createCategory(String  id, String name) {
+        return new Category(id, name);
     }
 
     public UUID getId() {

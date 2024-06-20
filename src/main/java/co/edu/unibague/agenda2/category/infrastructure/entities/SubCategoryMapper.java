@@ -11,7 +11,7 @@ public class SubCategoryMapper {
         return new SubCategoryEntity(
                 subCategory.getId(),
                 subCategory.getName(),
-                CategoryMapper.toCategoryEntity(subCategory.getFather())
+                CategoryMapper.toCategoryEntity(subCategory.getCategory())
         );
     }
 
@@ -19,7 +19,7 @@ public class SubCategoryMapper {
         return SubCategory.createSubCategory(
                 subCategoryEntity.getId().toString(),
                 subCategoryEntity.getName(),
-                CategoryMapper.toDomainCategory(subCategoryEntity.getCategoryFather())
+                CategoryMapper.toDomainCategory(subCategoryEntity.getCategoryEntity())
         );
     }
 }
