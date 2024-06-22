@@ -6,6 +6,7 @@ import co.edu.unibague.agenda2.category.infrastructure.entities.SubCategoryMappe
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PostgresSubCategoryRepository implements SubCategoryRepository {
@@ -26,5 +27,10 @@ public class PostgresSubCategoryRepository implements SubCategoryRepository {
     @Override
     public List<SubCategory> findAll() {
         return jpaRepository.findAll().stream().map(SubCategoryMapper::toDomainSubCategory).toList();
+    }
+
+    @Override
+    public Optional<SubCategory> findByName(String name) {
+        return jpaRepository.findByName(name).map(SubCategoryMapper::toDomainSubCategory);
     }
 }

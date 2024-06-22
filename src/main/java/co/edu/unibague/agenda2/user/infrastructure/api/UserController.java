@@ -70,7 +70,7 @@ public class UserController {
     @PutMapping("/role")
     public ResponseEntity<Void> addRoleToUser(@RequestBody UserRoleInput userRoleInput) {
         userUpdater.addRoleToUser(userRoleInput.userId(), userRoleInput.roleName());
-        log.info("Role {} added to user {}", userRoleInput.userId(), userRoleInput.roleName());
+        log.info("Role {} added to user {}", userRoleInput.roleName(), userRoleInput.userId());
         return ResponseEntity.ok().build();
     }
 }

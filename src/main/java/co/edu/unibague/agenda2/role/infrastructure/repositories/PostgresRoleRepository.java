@@ -31,6 +31,6 @@ public class PostgresRoleRepository implements RoleRepository {
 
     @Override
     public Optional<Role> findByName(String name) {
-        return Optional.of(RoleMapper.toDomainRole(jpaRepository.findByName(name)));
+        return jpaRepository.findByName(name).map(RoleMapper::toDomainRole);
     }
 }

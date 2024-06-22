@@ -51,6 +51,7 @@ public class SpringSecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/api/roles").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.POST, "/api/schedules").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
                     http.requestMatchers(HttpMethod.GET, "/api/schedules").authenticated();
+                    http.requestMatchers(HttpMethod.PUT, "/api/schedules/category").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
                     http.requestMatchers(HttpMethod.POST, "/api/places").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
                     http.requestMatchers(HttpMethod.GET, "/api/places").authenticated();
                     http.requestMatchers(HttpMethod.POST, "/api/sessions").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");

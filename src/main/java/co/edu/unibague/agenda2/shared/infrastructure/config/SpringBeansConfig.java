@@ -17,6 +17,7 @@ import co.edu.unibague.agenda2.role.application.RoleRetriever;
 import co.edu.unibague.agenda2.role.domain.RoleRepository;
 import co.edu.unibague.agenda2.schedule.application.ScheduleCreator;
 import co.edu.unibague.agenda2.schedule.application.ScheduleRetriever;
+import co.edu.unibague.agenda2.schedule.application.ScheduleUpdater;
 import co.edu.unibague.agenda2.schedule.domain.ScheduleRepository;
 import co.edu.unibague.agenda2.session.application.SessionCreator;
 import co.edu.unibague.agenda2.session.application.SessionRetriever;
@@ -76,6 +77,11 @@ public class SpringBeansConfig {
     @Bean
     public ScheduleRetriever scheduleRetriever(ScheduleRepository scheduleRepository) {
         return new ScheduleRetriever(scheduleRepository);
+    }
+
+    @Bean
+    public ScheduleUpdater scheduleUpdater(ScheduleRepository scheduleRepository, SubCategoryRepository subCategoryRepository) {
+        return new ScheduleUpdater(scheduleRepository, subCategoryRepository);
     }
 
     @Bean
