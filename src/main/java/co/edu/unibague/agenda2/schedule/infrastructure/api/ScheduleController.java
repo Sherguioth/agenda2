@@ -23,7 +23,8 @@ public class ScheduleController {
     private final UpdateSchedule scheduleUpdater;
     private final RetrieveUser userRetriever;
 
-    public ScheduleController(CreateSchedule scheduleCreator, RetrieveSchedule scheduleRetriever, UpdateSchedule scheduleUpdater, RetrieveUser userRetriever) {
+    public ScheduleController(CreateSchedule scheduleCreator, RetrieveSchedule scheduleRetriever,
+                              UpdateSchedule scheduleUpdater, RetrieveUser userRetriever) {
         this.scheduleCreator = scheduleCreator;
         this.scheduleRetriever = scheduleRetriever;
         this.scheduleUpdater = scheduleUpdater;
@@ -61,5 +62,12 @@ public class ScheduleController {
         );
         log.info("Category {} added to schedule {}", scheduleCategoryInput.categoryName(), scheduleCategoryInput.scheduleId());
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/category")
+    public ResponseEntity<Void> deleteCategoryFromSchedule(@RequestBody ScheduleCategoryDelete scheduleCategoryDelete) {
+        scheduleUpdater.removeCategoryFromSchedule(scheduleCategoryDelete.scheduleId(), scheduleCategoryDelete.categoryName());
+        log.info("Category {} deleted from schedule {}", scheduleCategoryDelete.categoryName(), scheduleCategoryDelete.scheduleId());
+        return ResponseEntity.noContent().build();
     }
 }

@@ -15,13 +15,13 @@ public class Schedule {
     private final Id id;
     private final ScheduleTitle title;
     private final User user;
-    private final ScheduleCategories scheduleCategories;
+    private ScheduleCategories categories;
 
     public Schedule(String  id, String  title, User user, ScheduleCategories categories) {
         this.id = new Id(id);
         this.title = new ScheduleTitle(title);
         this.user = user;
-        this.scheduleCategories = categories;
+        this.categories = categories;
     }
 
     public static Schedule create(String id, String  title, User user) {
@@ -41,10 +41,18 @@ public class Schedule {
     }
 
     public Set<ScheduleCategory> getCategories() {
-        return scheduleCategories.value();
+        return categories.value();
     }
 
     public void addCategory(ScheduleCategory category) {
-        scheduleCategories.addCategory(category);
+        categories.addCategory(category);
+    }
+
+    public void addCategories(Set<ScheduleCategory> categories) {
+        this.categories = new ScheduleCategories(categories);
+    }
+
+    public void removeCategory(ScheduleCategory category) {
+        categories.removeCategory(category);
     }
 }

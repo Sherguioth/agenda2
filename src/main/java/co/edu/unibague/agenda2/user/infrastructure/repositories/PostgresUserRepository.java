@@ -77,12 +77,12 @@ public class PostgresUserRepository implements UserRepository {
         List<UserCategoryEntity> userCategoryEntities = jpaUserCategoryRepository.findAllByUserEntity(userEntity);
         Set<UserCategory> userCategories = new HashSet<>();
 
-        userCategoryEntities.forEach(categoryEntityEntity -> {
+        userCategoryEntities.forEach(userCategoryEntity -> {
             var subCategory = SubCategoryMapper.toDomainSubCategory(
-                    jpaSubCategoryRepository.findById(categoryEntityEntity.getCategoryEntity().getId()).orElseThrow()
+                    jpaSubCategoryRepository.findById(userCategoryEntity.getCategoryEntity().getId()).orElseThrow()
             );
 
-            userCategories.add(new UserCategory(subCategory, categoryEntityEntity.isAnExpert()));
+            userCategories.add(new UserCategory(subCategory, userCategoryEntity.isAnExpert()));
         });
 
         user.addCategories(userCategories);

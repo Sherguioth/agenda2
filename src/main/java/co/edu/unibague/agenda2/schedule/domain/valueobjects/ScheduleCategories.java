@@ -14,6 +14,10 @@ public class ScheduleCategories {
         categories.add(category);
     }
 
+    public void removeCategory(ScheduleCategory category) {
+        categories.remove(category);
+    }
+
     public Set<ScheduleCategory> value() {
         return categories;
     }

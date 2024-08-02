@@ -30,4 +30,23 @@ public class ScheduleUpdater implements UpdateSchedule {
         schedule.addCategory(scheduleCategory);
         scheduleRepository.addCategoryToSchedule(schedule, scheduleCategory);
     }
+
+    @Override
+    public void removeCategoryFromSchedule(String scheduleId, String categoryName) {
+        var subCategoryOptional = subCategoryRepository.findByName(categoryName);
+        SubCategory category = subCategoryOptional.orElseThrow(() -> new RuntimeException("SubCategory not found"));
+
+        var optionalSchedule = scheduleRepository.findById(new Id(scheduleId));
+        Schedule schedule = optionalSchedule.orElseThrow(() -> new RuntimeException("Schedule not found"));
+
+        var scheduleCategories = scheduleRepository.findScheduleCategories(schedule)
+                .orElseThrow(() -> new RuntimeException("ScheduleCategory not found"));
+
+        var scheduleCategory = scheduleCategories.value().stream()
+                .filter(scheduleCat -> scheduleCat.getCategory().getId().equals(category.getId()))
+                .findFirst().orElseThrow(() -> new RuntimeException("ScheduleCategory not found"));
+
+        schedule.removeCategory(scheduleCategory);
+        scheduleRepository.removeCategoryFromSchedule(schedule, scheduleCategory);
+    }
 }
