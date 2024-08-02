@@ -1,4 +1,6 @@
 package co.edu.unibague.agenda2.shared.infrastructure.api;
 
-public record AuthResponse(String username, String message, String token) {
+import java.util.List;
+
+public record AuthResponse(String username, String message, String token, List<String> roles) {
 }

@@ -16,7 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -48,7 +50,8 @@ public class CustomUserDetailService implements UserDetailsService {
         Authentication auth = this.authenticate(username, password);
         SecurityContextHolder.getContext().setAuthentication(auth);
         var token = jwtUtils.generateToken(auth);
-        return new AuthResponse(username, "User logged in successfully", token);
+        List<String> roles = Collections.singletonList(jwtUtils.getClaim(jwtUtils.validateToken(token), "authorities").asString());
+        return new AuthResponse(username, "User logged in successfully", token, roles);
     }
 
     private Authentication authenticate(String username, String password) {
