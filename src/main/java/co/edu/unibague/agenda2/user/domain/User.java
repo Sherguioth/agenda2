@@ -18,9 +18,10 @@ public class User {
     private final UserLastName lastName;
     private final UserBirthday birthday;
     private final UserRoles roles;
+    private UserCategories categories;
 
     public User(String id, String email, String password, String firstName, String lastName,
-                String birthday, UserRoles roles) {
+                String birthday, UserRoles roles, UserCategories categories) {
         this.id = new Id(id);
         this.email = new UserEmail(email);
         this.password = new UserPassword(password);
@@ -28,11 +29,13 @@ public class User {
         this.lastName = new UserLastName(lastName);
         this.birthday = new UserBirthday(birthday);
         this.roles = roles;
+        this.categories = categories;
     }
 
     public static User create(String id, String email, String password, String firstName,
                               String lastName, String birthday) {
-        return new User(id, email, password, firstName, lastName, birthday, new UserRoles(new HashSet<>()));
+        return new User(id, email, password, firstName, lastName, birthday, new UserRoles(new HashSet<>()),
+                new UserCategories(new HashSet<>()));
     }
 
     public UUID getId() {
@@ -65,6 +68,22 @@ public class User {
 
     public void addRole(Role role) {
         roles.add(role);
+    }
+
+    public Set<UserCategory> getCategories() {
+        return categories.value();
+    }
+
+    public void addCategory(UserCategory category) {
+        categories.addCategory(category);
+    }
+
+    public void addCategories(Set<UserCategory> categories) {
+        this.categories = new UserCategories(categories);
+    }
+
+    public void removeCategory(UserCategory category) {
+        categories.removeCategory(category);
     }
 
     public void updatePassword(String newPassword) {

@@ -57,8 +57,9 @@ public class SpringBeansConfig {
     }
 
     @Bean
-    public UserUpdater userUpdater(UserRepository userRepository, RoleRepository roleRepository) {
-        return new UserUpdater(userRepository, roleRepository);
+    public UserUpdater userUpdater(UserRepository userRepository, RoleRepository roleRepository,
+                                   SubCategoryRepository subCategoryRepository) {
+        return new UserUpdater(userRepository, roleRepository, subCategoryRepository);
     }
 
     @Bean

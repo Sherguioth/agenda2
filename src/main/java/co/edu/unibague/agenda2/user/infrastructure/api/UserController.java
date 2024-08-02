@@ -73,4 +73,22 @@ public class UserController {
         log.info("Role {} added to user {}", userRoleInput.roleName(), userRoleInput.userId());
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/category")
+    public ResponseEntity<Void> addCategoryToUser(@RequestBody UserCategoryInput userCategoryInput) {
+        userUpdater.addCategoryToUser(
+                userCategoryInput.userId(),
+                userCategoryInput.categoryName(),
+                userCategoryInput.isAnExpert()
+        );
+        log.info("Category {} added to user {}", userCategoryInput.categoryName(), userCategoryInput.userId());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/category")
+    public ResponseEntity<Void> deleteCategoryFromUser(@RequestBody UserCategoryDelete userCategoryDelete) {
+        userUpdater.removeCategoryFromUser(userCategoryDelete.userId(), userCategoryDelete.categoryName());
+        log.info("Category {} deleted from User {}", userCategoryDelete.categoryName(), userCategoryDelete.userId());
+        return ResponseEntity.noContent().build();
+    }
 }
