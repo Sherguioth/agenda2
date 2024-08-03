@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -60,6 +61,26 @@ public class AppointmentController {
         ).toList();
         log.info("Appointments retrieved: {}", appointmentResponses.size());
         return ResponseEntity.ok().body(appointmentResponses);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AppointmentSummary>> getAppointmentsByUserId(@PathVariable("userId") String userId) {
+        List<Appointment> appointmentList = appointmentRetriever.getAppointmentsByUserId(userId);
+        List<AppointmentSummary> appointmentSummaries = new ArrayList<>();
+        appointmentList.forEach(appointment -> {
+            appointmentSummaries.add(new AppointmentSummary(
+                    appointment.getId(),
+                    appointment.getDescription(),
+                    appointment.getSession().getDescription(),
+                    appointment.getSession().getDateTime(),
+                    appointment.getSession().getUsersLimit(),
+                    appointment.getSession().getPlace().getId(),
+                    appointment.getSession().getPlace().getPlaceName(),
+                    appointment.getSession().getPlace().getPlaceAddress()
+            ));
+        });
+
+        return ResponseEntity.ok().body(appointmentSummaries);
     }
 
     @PutMapping
