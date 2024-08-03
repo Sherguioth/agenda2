@@ -6,14 +6,14 @@ import co.edu.unibague.agenda2.appointment.domain.usecases.CreateAppointment;
 
 public class AppointmentCreator implements CreateAppointment {
 
-    private final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository repository;
 
-    public AppointmentCreator(AppointmentRepository appointmentRepository) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentCreator(AppointmentRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public void save(Appointment appointment) {
-        appointmentRepository.save(appointment);
+    public void createAppointment(Appointment appointment) {
+        repository.save(appointment);
     }
 }

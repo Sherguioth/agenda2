@@ -10,25 +10,25 @@ public class Role {
     private final Id id;
     private final RoleName roleName;
 
-    public Role(String id, String roleName) {
+    public Role(String id, String name) {
         this.id = new Id(id);
-        this.roleName = new RoleName(roleName);
+        this.roleName = new RoleName(name);
     }
 
-    public static Role create(String id, String roleName) {
-        return new Role(id, roleName);
+    public static Role create(String id, String name) {
+        return new Role(id, name);
     }
 
     public UUID getId() {
         return id.value();
     }
 
-    public String getRoleName() {
+    public String getName() {
         return roleName.value();
     }
 
     @Override
     public String toString() {
-        return "{roleName=" + getRoleName() + '}';
+        return "{roleName=" + getName() + '}';
     }
 }

@@ -1,8 +1,16 @@
 package co.edu.unibague.agenda2.shared.infrastructure.config;
 
 import co.edu.unibague.agenda2.appointment.application.AppointmentCreator;
+import co.edu.unibague.agenda2.appointment.application.AppointmentDeleter;
 import co.edu.unibague.agenda2.appointment.application.AppointmentRetriever;
+import co.edu.unibague.agenda2.appointment.application.AppointmentUpdater;
 import co.edu.unibague.agenda2.appointment.domain.AppointmentRepository;
+import co.edu.unibague.agenda2.category.application.CategoryCreator;
+import co.edu.unibague.agenda2.category.application.CategoryRetriever;
+import co.edu.unibague.agenda2.category.application.SubCategoryCreator;
+import co.edu.unibague.agenda2.category.application.SubCategoryRetriever;
+import co.edu.unibague.agenda2.category.domain.CategoryRepository;
+import co.edu.unibague.agenda2.category.domain.SubCategoryRepository;
 import co.edu.unibague.agenda2.place.application.PlaceCreator;
 import co.edu.unibague.agenda2.place.application.PlaceRetriever;
 import co.edu.unibague.agenda2.place.domain.PlaceRepository;
@@ -11,6 +19,7 @@ import co.edu.unibague.agenda2.role.application.RoleRetriever;
 import co.edu.unibague.agenda2.role.domain.RoleRepository;
 import co.edu.unibague.agenda2.schedule.application.ScheduleCreator;
 import co.edu.unibague.agenda2.schedule.application.ScheduleRetriever;
+import co.edu.unibague.agenda2.schedule.application.ScheduleUpdater;
 import co.edu.unibague.agenda2.schedule.domain.ScheduleRepository;
 import co.edu.unibague.agenda2.session.application.SessionCreator;
 import co.edu.unibague.agenda2.session.application.SessionRetriever;
@@ -48,8 +57,9 @@ public class SpringBeansConfig {
     }
 
     @Bean
-    public UserUpdater userUpdater(UserRepository userRepository, RoleRepository roleRepository) {
-        return new UserUpdater(userRepository, roleRepository);
+    public UserUpdater userUpdater(UserRepository userRepository, RoleRepository roleRepository,
+                                   SubCategoryRepository subCategoryRepository) {
+        return new UserUpdater(userRepository, roleRepository, subCategoryRepository);
     }
 
     @Bean
@@ -70,6 +80,11 @@ public class SpringBeansConfig {
     @Bean
     public ScheduleRetriever scheduleRetriever(ScheduleRepository scheduleRepository) {
         return new ScheduleRetriever(scheduleRepository);
+    }
+
+    @Bean
+    public ScheduleUpdater scheduleUpdater(ScheduleRepository scheduleRepository, SubCategoryRepository subCategoryRepository) {
+        return new ScheduleUpdater(scheduleRepository, subCategoryRepository);
     }
 
     @Bean
@@ -100,5 +115,35 @@ public class SpringBeansConfig {
     @Bean
     public AppointmentRetriever appointmentRetriever(AppointmentRepository appointmentRepository) {
         return new AppointmentRetriever(appointmentRepository);
+    }
+
+    @Bean
+    public AppointmentUpdater appointmentUpdater(AppointmentRepository appointmentRepository) {
+        return new AppointmentUpdater(appointmentRepository);
+    }
+
+    @Bean
+    public AppointmentDeleter appointmentDeleter(AppointmentRepository appointmentRepository) {
+        return new AppointmentDeleter(appointmentRepository);
+    }
+
+    @Bean
+    public CategoryCreator categoryCreator(CategoryRepository categoryRepository) {
+        return new CategoryCreator(categoryRepository);
+    }
+
+    @Bean
+    public CategoryRetriever categoryRetriever(CategoryRepository categoryRepository) {
+        return new CategoryRetriever(categoryRepository);
+    }
+
+    @Bean
+    public SubCategoryCreator subCategoryCreator(SubCategoryRepository subCategoryRepository) {
+        return new SubCategoryCreator(subCategoryRepository);
+    }
+
+    @Bean
+    public SubCategoryRetriever subCategoryRetriever(SubCategoryRepository subCategoryRepository) {
+        return new SubCategoryRetriever(subCategoryRepository);
     }
 }

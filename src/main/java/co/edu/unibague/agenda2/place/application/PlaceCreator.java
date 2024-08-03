@@ -6,14 +6,14 @@ import co.edu.unibague.agenda2.place.domain.usecases.CreatePlace;
 
 public class PlaceCreator implements CreatePlace {
 
-    private final PlaceRepository placeRepository;
+    private final PlaceRepository repository;
 
-    public PlaceCreator(PlaceRepository placeRepository) {
-        this.placeRepository = placeRepository;
+    public PlaceCreator(PlaceRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public void createPlace(Place place) {
-        placeRepository.save(place);
+        repository.save(place);
     }
 }

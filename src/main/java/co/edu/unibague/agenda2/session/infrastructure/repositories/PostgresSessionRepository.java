@@ -8,31 +8,30 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public class PostgresSessionRepository implements SessionRepository {
 
-    private final JpaSessionRepository repository;
+    private final JpaSessionRepository jpaRepository;
 
-    public PostgresSessionRepository(JpaSessionRepository repository) {
-        this.repository = repository;
+    public PostgresSessionRepository(JpaSessionRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
     }
 
     @Override
     public void save(Session session) {
         var sessionEntity = SessionMapper.toSessionEntity(session);
-        var sessionSaved = repository.save(sessionEntity);
+        var sessionSaved = jpaRepository.save(sessionEntity);
         SessionMapper.toDomainSession(sessionSaved);
     }
 
     @Override
     public List<Session> findAll() {
-        return repository.findAll().stream().map(SessionMapper::toDomainSession).toList();
+        return jpaRepository.findAll().stream().map(SessionMapper::toDomainSession).toList();
     }
 
     @Override
     public Optional<Session> getSession(Id sessionId) {
-        return repository.findById(sessionId.value()).map(SessionMapper::toDomainSession);
+        return jpaRepository.findById(sessionId.value()).map(SessionMapper::toDomainSession);
     }
 }

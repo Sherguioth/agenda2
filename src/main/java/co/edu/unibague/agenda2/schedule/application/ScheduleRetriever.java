@@ -7,23 +7,22 @@ import co.edu.unibague.agenda2.shared.domain.Id;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class ScheduleRetriever implements RetrieveSchedule {
 
-    private final ScheduleRepository scheduleRepository;
+    private final ScheduleRepository repository;
 
-    public ScheduleRetriever(ScheduleRepository scheduleRepository) {
-        this.scheduleRepository = scheduleRepository;
+    public ScheduleRetriever(ScheduleRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Schedule> getAllSchedules() {
-        return scheduleRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public Optional<Schedule> getSchedule(String scheduleId) {
-        return scheduleRepository.findById(new Id(scheduleId));
+        return repository.findById(new Id(scheduleId));
     }
 }

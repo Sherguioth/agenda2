@@ -34,8 +34,9 @@ public class RoleController {
     public ResponseEntity<List<RoleResponse>> getRoles() {
         List<Role> roleList = roleRetriever.getAllRoles();
         List<RoleResponse> roleResponses = roleList.stream().map(
-                role -> new RoleResponse(role.getId(), role.getRoleName())
+                role -> new RoleResponse(role.getId(), role.getName())
         ).toList();
+        log.info("Roles retrieved: {}", roleResponses.size());
         return ResponseEntity.ok().body(roleResponses);
     }
 }

@@ -47,8 +47,8 @@ public class SessionController {
         List<SessionResponse> sessionResponses = sessionList.stream().map(
                 session -> new SessionResponse(
                         session.getId(),
-                        session.getSessionDescription(),
-                        session.getSessionDateTime(),
+                        session.getDescription(),
+                        session.getDateTime(),
                         session.getUsersLimit(),
                         session.getSchedule().getId(),
                         session.getSchedule().getTitle(),
@@ -56,6 +56,7 @@ public class SessionController {
                         session.getPlace().getPlaceName()
                 )
         ).toList();
+        log.info("Sessions retrieved: {}", sessionResponses.size());
         return ResponseEntity.ok().body(sessionResponses);
     }
 }

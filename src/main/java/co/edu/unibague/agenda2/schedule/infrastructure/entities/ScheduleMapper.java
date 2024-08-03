@@ -12,7 +12,7 @@ public class ScheduleMapper {
         return Schedule.create(
                 scheduleEntity.getId().toString(),
                 scheduleEntity.getTitle(),
-                UserMapper.toDomainUser(scheduleEntity.getUserId())
+                UserMapper.toDomainUser(scheduleEntity.getUserEntity())
         );
     }
 

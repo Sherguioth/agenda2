@@ -16,7 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -37,7 +39,7 @@ public class CustomUserDetailService implements UserDetailsService {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("The user with the email " + username + " doesn't exist"));
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName().toUpperCase())));
+        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase())));
         return new CustomUserDetails(user.getEmail(), user.getPassword(), authorities);
     }
 
@@ -48,7 +50,8 @@ public class CustomUserDetailService implements UserDetailsService {
         Authentication auth = this.authenticate(username, password);
         SecurityContextHolder.getContext().setAuthentication(auth);
         var token = jwtUtils.generateToken(auth);
-        return new AuthResponse(username, "User logged in successfully", token);
+        List<String> roles = Collections.singletonList(jwtUtils.getClaim(jwtUtils.validateToken(token), "authorities").asString());
+        return new AuthResponse(username, "User logged in successfully", token, roles);
     }
 
     private Authentication authenticate(String username, String password) {

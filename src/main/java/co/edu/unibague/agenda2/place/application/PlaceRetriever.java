@@ -10,19 +10,19 @@ import java.util.Optional;
 
 public class PlaceRetriever implements RetrievePlace {
 
-    private final PlaceRepository placeRepository;
+    private final PlaceRepository repository;
 
-    public PlaceRetriever(PlaceRepository placeRepository) {
-        this.placeRepository = placeRepository;
+    public PlaceRetriever(PlaceRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Place> getAllPlaces() {
-        return this.placeRepository.findAll();
+        return this.repository.findAll();
     }
 
     @Override
     public Optional<Place> getPlace(String placeId) {
-        return placeRepository.findById(new Id(placeId));
+        return repository.findById(new Id(placeId));
     }
 }

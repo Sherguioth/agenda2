@@ -14,16 +14,15 @@ public class Appointment {
     private final User appointmentUser;
     private final Session appointmentSession;
 
-    public Appointment(String appointmentId, String appointmentDescription, User appointmentUser, Session appointmentSession) {
-        this.appointmentId = new Id(appointmentId);
-        this.appointmentDescription = new AppointmentDescription(appointmentDescription);
-        this.appointmentUser = appointmentUser;
-        this.appointmentSession = appointmentSession;
+    public Appointment(String id, String description, User user, Session session) {
+        this.appointmentId = new Id(id);
+        this.appointmentDescription = new AppointmentDescription(description);
+        this.appointmentUser = user;
+        this.appointmentSession = session;
     }
 
-    public static Appointment create(String appointmentId, String appointmentDescription, User appointmentUser,
-                                     Session appointmentSession) {
-        return new Appointment(appointmentId, appointmentDescription, appointmentUser, appointmentSession);
+    public static Appointment create(String id, String description, User user, Session session) {
+        return new Appointment(id, description, user, session);
     }
 
     public UUID getId() {

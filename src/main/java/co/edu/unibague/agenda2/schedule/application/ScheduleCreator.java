@@ -6,14 +6,14 @@ import co.edu.unibague.agenda2.schedule.domain.usecases.CreateSchedule;
 
 public class ScheduleCreator implements CreateSchedule {
 
-    private final ScheduleRepository scheduleRepository;
+    private final ScheduleRepository repository;
 
-    public ScheduleCreator(ScheduleRepository scheduleRepository) {
-        this.scheduleRepository = scheduleRepository;
+    public ScheduleCreator(ScheduleRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public void createSchedule(Schedule schedule) {
-        scheduleRepository.save(schedule);
+        repository.save(schedule);
     }
 }

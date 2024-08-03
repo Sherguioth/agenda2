@@ -8,4 +8,5 @@ public interface RetrieveAppointment {
 
     List<Appointment> getAllAppointments();
 
+    List<Appointment> getAppointmentsByUserId(String userId);
 }

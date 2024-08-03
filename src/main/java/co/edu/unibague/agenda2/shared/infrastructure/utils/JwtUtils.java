@@ -12,7 +12,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,9 +58,5 @@ public class JwtUtils {
 
     public Claim getClaim(DecodedJWT token, String name) {
         return token.getClaim(name);
-    }
-
-    public Map<String, Claim> getClaims(DecodedJWT token) {
-        return token.getClaims();
     }
 }

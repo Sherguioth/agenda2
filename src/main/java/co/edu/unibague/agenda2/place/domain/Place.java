@@ -12,14 +12,14 @@ public class Place {
     private final PlaceName placeName;
     private PlaceAddress placeAddress;
 
-    public Place(String  placeId, String placeName, String placeAddress) {
-        this.placeId = new Id(placeId);
-        this.placeName = new PlaceName(placeName);
-        this.placeAddress = new PlaceAddress(placeAddress);
+    public Place(String id, String name, String address) {
+        this.placeId = new Id(id);
+        this.placeName = new PlaceName(name);
+        this.placeAddress = new PlaceAddress(address);
     }
 
-    public static Place create(String placeId, String placeName, String placeAddress) {
-        return new Place(placeId, placeName, placeAddress);
+    public static Place create(String id, String name, String address) {
+        return new Place(id, name, address);
     }
 
     public UUID getId() {
@@ -30,7 +30,7 @@ public class Place {
         return placeName.value();
     }
 
-    public String  getPlaceAddress() {
+    public String getPlaceAddress() {
         return placeAddress.value();
     }
 }

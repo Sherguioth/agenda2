@@ -6,14 +6,14 @@ import co.edu.unibague.agenda2.user.domain.usecases.CreateUser;
 
 public class UserCreator implements CreateUser {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
-    public UserCreator(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserCreator(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public void createUser(User user) {
-        userRepository.save(user);
+        repository.save(user);
     }
 }

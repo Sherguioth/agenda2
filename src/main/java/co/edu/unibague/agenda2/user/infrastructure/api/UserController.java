@@ -46,6 +46,7 @@ public class UserController {
                     user.getLastName(),
                     user.getBirthday()
             );
+            log.info("User retrieved: {} {}", user.getFirstName(), user.getLastName());
             return ResponseEntity.ok().body(userResponse);
         }).orElse(ResponseEntity.notFound().build());
     }
@@ -62,13 +63,32 @@ public class UserController {
                         user.getLastName(),
                         user.getBirthday())
         ).toList();
+        log.info("Users retrieved: {}", userResponses.size());
         return ResponseEntity.ok().body(userResponses);
     }
 
     @PutMapping("/role")
     public ResponseEntity<Void> addRoleToUser(@RequestBody UserRoleInput userRoleInput) {
         userUpdater.addRoleToUser(userRoleInput.userId(), userRoleInput.roleName());
-        log.info("Role {} added to user {}", userRoleInput.userId(), userRoleInput.roleName());
+        log.info("Role {} added to user {}", userRoleInput.roleName(), userRoleInput.userId());
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/category")
+    public ResponseEntity<Void> addCategoryToUser(@RequestBody UserCategoryInput userCategoryInput) {
+        userUpdater.addCategoryToUser(
+                userCategoryInput.userId(),
+                userCategoryInput.categoryName(),
+                userCategoryInput.isAnExpert()
+        );
+        log.info("Category {} added to user {}", userCategoryInput.categoryName(), userCategoryInput.userId());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/category")
+    public ResponseEntity<Void> deleteCategoryFromUser(@RequestBody UserCategoryDelete userCategoryDelete) {
+        userUpdater.removeCategoryFromUser(userCategoryDelete.userId(), userCategoryDelete.categoryName());
+        log.info("Category {} deleted from User {}", userCategoryDelete.categoryName(), userCategoryDelete.userId());
+        return ResponseEntity.noContent().build();
     }
 }
