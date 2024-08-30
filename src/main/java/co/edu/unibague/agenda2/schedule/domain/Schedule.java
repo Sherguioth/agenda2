@@ -52,7 +52,27 @@ public class Schedule {
         this.categories = new ScheduleCategories(categories);
     }
 
+    public Set<ScheduleCategory> getMandatoryCategories(){
+        var result = new HashSet<ScheduleCategory>();
+
+        categories.value().stream()
+                .filter(ScheduleCategory::isMandatory)
+                .forEach(result::add);
+
+        return result;
+    }
+
     public void removeCategory(ScheduleCategory category) {
         categories.removeCategory(category);
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "id=" + id.value() +
+                ", title=" + title.value() +
+                ", user=" + user +
+                ", categories=" + categories.toString() +
+                '}';
     }
 }

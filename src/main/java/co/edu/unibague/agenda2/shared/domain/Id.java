@@ -13,4 +13,9 @@ public class Id {
     public UUID value() {
         return this.id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Id) && ((Id) obj).id.equals(this.id);
+    }
 }

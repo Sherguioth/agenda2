@@ -3,6 +3,7 @@ package co.edu.unibague.agenda2.category.domain;
 import co.edu.unibague.agenda2.category.domain.valueobjects.CategoryName;
 import co.edu.unibague.agenda2.shared.domain.Id;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Category {
@@ -30,5 +31,17 @@ public class Category {
 
     public CategoryGroup getCategoryGroup() {
         return father;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category category)) return false;
+        return Objects.equals(categoryId, category.categoryId) && Objects.equals(categoryName, category.categoryName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(categoryId, categoryName);
     }
 }
