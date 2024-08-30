@@ -5,12 +5,12 @@ import co.edu.unibague.agenda2.appointment.application.AppointmentDeleter;
 import co.edu.unibague.agenda2.appointment.application.AppointmentRetriever;
 import co.edu.unibague.agenda2.appointment.application.AppointmentUpdater;
 import co.edu.unibague.agenda2.appointment.domain.AppointmentRepository;
+import co.edu.unibague.agenda2.category.application.CategoryGroupCreator;
+import co.edu.unibague.agenda2.category.application.CategoryGroupRetriever;
 import co.edu.unibague.agenda2.category.application.CategoryCreator;
 import co.edu.unibague.agenda2.category.application.CategoryRetriever;
-import co.edu.unibague.agenda2.category.application.SubCategoryCreator;
-import co.edu.unibague.agenda2.category.application.SubCategoryRetriever;
+import co.edu.unibague.agenda2.category.domain.CategoryGroupRepository;
 import co.edu.unibague.agenda2.category.domain.CategoryRepository;
-import co.edu.unibague.agenda2.category.domain.SubCategoryRepository;
 import co.edu.unibague.agenda2.place.application.PlaceCreator;
 import co.edu.unibague.agenda2.place.application.PlaceRetriever;
 import co.edu.unibague.agenda2.place.domain.PlaceRepository;
@@ -58,8 +58,8 @@ public class SpringBeansConfig {
 
     @Bean
     public UserUpdater userUpdater(UserRepository userRepository, RoleRepository roleRepository,
-                                   SubCategoryRepository subCategoryRepository) {
-        return new UserUpdater(userRepository, roleRepository, subCategoryRepository);
+                                   CategoryRepository categoryRepository) {
+        return new UserUpdater(userRepository, roleRepository, categoryRepository);
     }
 
     @Bean
@@ -83,8 +83,8 @@ public class SpringBeansConfig {
     }
 
     @Bean
-    public ScheduleUpdater scheduleUpdater(ScheduleRepository scheduleRepository, SubCategoryRepository subCategoryRepository) {
-        return new ScheduleUpdater(scheduleRepository, subCategoryRepository);
+    public ScheduleUpdater scheduleUpdater(ScheduleRepository scheduleRepository, CategoryRepository categoryRepository) {
+        return new ScheduleUpdater(scheduleRepository, categoryRepository);
     }
 
     @Bean
@@ -128,6 +128,16 @@ public class SpringBeansConfig {
     }
 
     @Bean
+    public CategoryGroupCreator categoryGroupCreator(CategoryGroupRepository categoryGroupRepository) {
+        return new CategoryGroupCreator(categoryGroupRepository);
+    }
+
+    @Bean
+    public CategoryGroupRetriever categoryGroupRetriever(CategoryGroupRepository categoryGroupRepository) {
+        return new CategoryGroupRetriever(categoryGroupRepository);
+    }
+
+    @Bean
     public CategoryCreator categoryCreator(CategoryRepository categoryRepository) {
         return new CategoryCreator(categoryRepository);
     }
@@ -135,15 +145,5 @@ public class SpringBeansConfig {
     @Bean
     public CategoryRetriever categoryRetriever(CategoryRepository categoryRepository) {
         return new CategoryRetriever(categoryRepository);
-    }
-
-    @Bean
-    public SubCategoryCreator subCategoryCreator(SubCategoryRepository subCategoryRepository) {
-        return new SubCategoryCreator(subCategoryRepository);
-    }
-
-    @Bean
-    public SubCategoryRetriever subCategoryRetriever(SubCategoryRepository subCategoryRepository) {
-        return new SubCategoryRetriever(subCategoryRepository);
     }
 }

@@ -4,7 +4,7 @@ import co.edu.unibague.agenda2.category.domain.Category;
 import co.edu.unibague.agenda2.category.domain.CategoryRepository;
 import co.edu.unibague.agenda2.category.domain.usecases.CreateCategory;
 
-public class CategoryCreator  implements CreateCategory {
+public class CategoryCreator implements CreateCategory {
 
     private final CategoryRepository repository;
 

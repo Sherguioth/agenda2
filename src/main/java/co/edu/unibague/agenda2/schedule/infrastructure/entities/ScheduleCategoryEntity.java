@@ -1,7 +1,6 @@
 package co.edu.unibague.agenda2.schedule.infrastructure.entities;
 
 import co.edu.unibague.agenda2.category.infrastructure.entities.CategoryEntity;
-import co.edu.unibague.agenda2.category.infrastructure.entities.SubCategoryEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +26,7 @@ public class ScheduleCategoryEntity {
 
     @ManyToOne
     @JoinColumn(name = "category_id", updatable = false)
-    private SubCategoryEntity categoryEntity;
+    private CategoryEntity categoryEntity;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", updatable = false)

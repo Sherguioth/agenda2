@@ -1,7 +1,7 @@
 package co.edu.unibague.agenda2.user.infrastructure.repositories;
 
-import co.edu.unibague.agenda2.category.infrastructure.entities.SubCategoryMapper;
-import co.edu.unibague.agenda2.category.infrastructure.repositories.JpaSubCategoryRepository;
+import co.edu.unibague.agenda2.category.infrastructure.entities.CategoryMapper;
+import co.edu.unibague.agenda2.category.infrastructure.repositories.JpaCategoryRepository;
 import co.edu.unibague.agenda2.role.domain.Role;
 import co.edu.unibague.agenda2.role.infrastructure.entities.RoleMapper;
 import co.edu.unibague.agenda2.role.infrastructure.repositories.JpaRoleRepository;
@@ -27,16 +27,16 @@ public class PostgresUserRepository implements UserRepository {
     private final JpaUserRoleRepository jpaUserRoleRepository;
     private final JpaRoleRepository jpaRoleRepository;
     private final JpaUserCategoryRepository jpaUserCategoryRepository;
-    private final JpaSubCategoryRepository jpaSubCategoryRepository;
+    private final JpaCategoryRepository jpaCategoryRepository;
 
     public PostgresUserRepository(JpaUserRepository jpaUserRepository, JpaUserRoleRepository jpaUserRoleRepository,
                                   JpaRoleRepository jpaRoleRepository, JpaUserCategoryRepository jpaUserCategoryRepository,
-                                  JpaSubCategoryRepository jpaSubCategoryRepository) {
+                                  JpaCategoryRepository jpaCategoryRepository) {
         this.jpaUserRepository = jpaUserRepository;
         this.jpaUserRoleRepository = jpaUserRoleRepository;
         this.jpaRoleRepository = jpaRoleRepository;
         this.jpaUserCategoryRepository = jpaUserCategoryRepository;
-        this.jpaSubCategoryRepository = jpaSubCategoryRepository;
+        this.jpaCategoryRepository = jpaCategoryRepository;
     }
 
     @Override
@@ -78,11 +78,11 @@ public class PostgresUserRepository implements UserRepository {
         Set<UserCategory> userCategories = new HashSet<>();
 
         userCategoryEntities.forEach(userCategoryEntity -> {
-            var subCategory = SubCategoryMapper.toDomainSubCategory(
-                    jpaSubCategoryRepository.findById(userCategoryEntity.getCategoryEntity().getId()).orElseThrow()
+            var category = CategoryMapper.toDomainCategory(
+                    jpaCategoryRepository.findById(userCategoryEntity.getCategoryEntity().getId()).orElseThrow()
             );
 
-            userCategories.add(new UserCategory(subCategory, userCategoryEntity.isAnExpert()));
+            userCategories.add(new UserCategory(category, userCategoryEntity.isAnExpert()));
         });
 
         user.addCategories(userCategories);
@@ -98,27 +98,27 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public void addCategoryToUser(User user, UserCategory category) {
+    public void addCategoryToUser(User user, UserCategory userCategory) {
         var userEntity = UserMapper.toUserEntity(user);
-        var subCategoryEntity = SubCategoryMapper.toSubCategoryEntity(category.getCategory());
+        var categoryEntity = CategoryMapper.toCategoryEntity(userCategory.value());
 
         var userCategoryEntity = new UserCategoryEntity(
                 UUID.randomUUID(),
-                category.isAnExpert(),
+                userCategory.isAnExpert(),
                 userEntity,
-                subCategoryEntity
+                categoryEntity
         );
 
         jpaUserCategoryRepository.save(userCategoryEntity);
     }
 
     @Override
-    public void removeCategoryFromUser(User user, UserCategory category) {
-        var subCategory = category.getCategory();
+    public void removeCategoryFromUser(User user, UserCategory userCategory) {
+        var category = userCategory.value();
 
         var userCategoryEntityOptional = jpaUserCategoryRepository.findByUserEntityAndCategoryEntity(
                 UserMapper.toUserEntity(user),
-                SubCategoryMapper.toSubCategoryEntity(subCategory)
+                CategoryMapper.toCategoryEntity(category)
         );
 
         userCategoryEntityOptional.ifPresent(jpaUserCategoryRepository::delete);

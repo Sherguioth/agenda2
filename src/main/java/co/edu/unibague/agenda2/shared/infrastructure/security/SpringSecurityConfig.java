@@ -43,31 +43,40 @@ public class SpringSecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll();
 
                     // Private endpoints
-                    http.requestMatchers(HttpMethod.POST, "/api/users").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/api/users").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/api/users").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.PUT, "/api/users/role").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.PUT, "/api/users/category").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.DELETE, "/api/users/category").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/api/roles").hasAnyRole("DEVELOPER", "ADMIN");
+
                     http.requestMatchers(HttpMethod.GET, "/api/roles").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/api/schedules").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
+                    http.requestMatchers(HttpMethod.POST, "/api/roles").hasAnyRole("DEVELOPER", "ADMIN");
+
                     http.requestMatchers(HttpMethod.GET, "/api/schedules").authenticated();
+                    http.requestMatchers(HttpMethod.GET, "/api/schedules/user/**/categories").authenticated();
+                    http.requestMatchers(HttpMethod.POST, "/api/schedules").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
                     http.requestMatchers(HttpMethod.PUT, "/api/schedules/category").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
                     http.requestMatchers(HttpMethod.DELETE, "/api/schedules/category").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
-                    http.requestMatchers(HttpMethod.POST, "/api/places").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
+
                     http.requestMatchers(HttpMethod.GET, "/api/places").authenticated();
-                    http.requestMatchers(HttpMethod.POST, "/api/sessions").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
+                    http.requestMatchers(HttpMethod.POST, "/api/places").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
+
                     http.requestMatchers(HttpMethod.GET, "/api/sessions").authenticated();
-                    http.requestMatchers(HttpMethod.POST, "/api/appointments").authenticated();
+                    http.requestMatchers(HttpMethod.POST, "/api/sessions").hasAnyRole("DEVELOPER", "ADMIN", "PROFESSIONAL");
+
                     http.requestMatchers(HttpMethod.GET, "/api/appointments").authenticated();
+                    http.requestMatchers(HttpMethod.POST, "/api/appointments").authenticated();
+
                     http.requestMatchers(HttpMethod.GET, "/api/appointments/user/**").authenticated();
                     http.requestMatchers(HttpMethod.PUT, "/api/appointments").authenticated();
                     http.requestMatchers(HttpMethod.DELETE, "/api/appointments/**").authenticated();
-                    http.requestMatchers(HttpMethod.POST, "/api/categories").hasAnyRole("DEVELOPER", "ADMIN");
+
+                    http.requestMatchers(HttpMethod.GET, "/api/categoryGroups").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/api/categoryGroups").hasAnyRole("DEVELOPER", "ADMIN");
+
                     http.requestMatchers(HttpMethod.GET, "/api/categories").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/api/subcategories").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/api/subcategories").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/api/categories").hasAnyRole("DEVELOPER", "ADMIN");
 
                     // Anyone else endpoint
                     http.anyRequest().denyAll();

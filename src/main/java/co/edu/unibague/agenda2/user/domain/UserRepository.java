@@ -22,7 +22,7 @@ public interface UserRepository {
 
     void addRoleToUser(User user, Role role);
 
-    void addCategoryToUser(User user, UserCategory category);
+    void addCategoryToUser(User user, UserCategory userCategory);
 
-    void removeCategoryFromUser(User user, UserCategory category);
+    void removeCategoryFromUser(User user, UserCategory userCategory);
 }

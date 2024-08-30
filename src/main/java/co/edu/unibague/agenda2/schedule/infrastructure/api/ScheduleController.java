@@ -70,4 +70,11 @@ public class ScheduleController {
         log.info("Category {} deleted from schedule {}", scheduleCategoryDelete.categoryName(), scheduleCategoryDelete.scheduleId());
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/user/{userId}/categories")
+    public ResponseEntity<List<ScheduleResponse>> getSchedulesByUserCategories(@PathVariable("userId") String userId) {
+        var user = userRetriever.getUser(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        List<Schedule> schedules = scheduleRetriever.getSchedulesByUserCategories(user);
+        return ResponseEntity.noContent().build();
+    }
 }

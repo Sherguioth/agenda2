@@ -8,10 +8,18 @@ public class CategoryMapper {
     }
 
     public static CategoryEntity toCategoryEntity(Category category) {
-        return new CategoryEntity(category.getId(), category.getName());
+        return new CategoryEntity(
+                category.getId(),
+                category.getName(),
+                CategoryGroupMapper.toCategoryGroupEntity(category.getCategoryGroup())
+        );
     }
 
     public static Category toDomainCategory(CategoryEntity categoryEntity) {
-        return Category.createCategory(categoryEntity.getId().toString(), categoryEntity.getName());
+        return Category.createCategory(
+                categoryEntity.getId().toString(),
+                categoryEntity.getName(),
+                CategoryGroupMapper.toDomainCategoryGroup(categoryEntity.getCategoryGroupEntity())
+        );
     }
 }

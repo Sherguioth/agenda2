@@ -1,19 +1,19 @@
 package co.edu.unibague.agenda2.schedule.domain.valueobjects;
 
-import co.edu.unibague.agenda2.category.domain.SubCategory;
+import co.edu.unibague.agenda2.category.domain.Category;
 
 public class ScheduleCategory {
 
-    private final SubCategory subCategory;
+    private final Category category;
     private final boolean isMandatory;
 
-    public ScheduleCategory(SubCategory category, boolean isMandatory) {
-        this.subCategory = category;
+    public ScheduleCategory(Category category, boolean isMandatory) {
+        this.category = category;
         this.isMandatory = isMandatory;
     }
 
-    public SubCategory getCategory() {
-        return subCategory;
+    public Category value() {
+        return category;
     }
 
     public boolean isMandatory() {
