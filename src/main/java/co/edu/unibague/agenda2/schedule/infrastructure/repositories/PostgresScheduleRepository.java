@@ -1,7 +1,7 @@
 package co.edu.unibague.agenda2.schedule.infrastructure.repositories;
 
-import co.edu.unibague.agenda2.category.infrastructure.entities.SubCategoryMapper;
-import co.edu.unibague.agenda2.category.infrastructure.repositories.JpaSubCategoryRepository;
+import co.edu.unibague.agenda2.category.infrastructure.entities.CategoryMapper;
+import co.edu.unibague.agenda2.category.infrastructure.repositories.JpaCategoryRepository;
 import co.edu.unibague.agenda2.schedule.domain.Schedule;
 import co.edu.unibague.agenda2.schedule.domain.ScheduleRepository;
 import co.edu.unibague.agenda2.schedule.domain.valueobjects.ScheduleCategories;
@@ -18,14 +18,14 @@ public class PostgresScheduleRepository implements ScheduleRepository {
 
     private final JpaScheduleRepository jpaScheduleRepository;
     private final JpaScheduleCategoryRepository jpaScheduleCategoryRepository;
-    private final JpaSubCategoryRepository jpaSubCategoryRepository;
+    private final JpaCategoryRepository jpaCategoryRepository;
 
     public PostgresScheduleRepository(JpaScheduleRepository jpaScheduleRepository,
                                       JpaScheduleCategoryRepository jpaScheduleCategoryRepository,
-                                      JpaSubCategoryRepository jpaSubCategoryRepository) {
+                                      JpaCategoryRepository jpaCategoryRepository) {
         this.jpaScheduleRepository = jpaScheduleRepository;
         this.jpaScheduleCategoryRepository = jpaScheduleCategoryRepository;
-        this.jpaSubCategoryRepository = jpaSubCategoryRepository;
+        this.jpaCategoryRepository = jpaCategoryRepository;
     }
 
     @Override
@@ -54,11 +54,11 @@ public class PostgresScheduleRepository implements ScheduleRepository {
         Set<ScheduleCategory> scheduleCategories = new HashSet<>();
 
         scheduleCategoryEntities.forEach(scheduleCategoryEntity -> {
-            var subCategory = SubCategoryMapper.toDomainSubCategory(
-                    jpaSubCategoryRepository.findById(scheduleCategoryEntity.getCategoryEntity().getId()).orElseThrow()
+            var category = CategoryMapper.toDomainCategory(
+                    jpaCategoryRepository.findById(scheduleCategoryEntity.getCategoryEntity().getId()).orElseThrow()
             );
 
-            scheduleCategories.add(new ScheduleCategory(subCategory, scheduleCategoryEntity.isMandatory()));
+            scheduleCategories.add(new ScheduleCategory(category, scheduleCategoryEntity.isMandatory()));
         });
 
         schedule.addCategories(scheduleCategories);
@@ -66,14 +66,14 @@ public class PostgresScheduleRepository implements ScheduleRepository {
     }
 
     @Override
-    public void addCategoryToSchedule(Schedule schedule, ScheduleCategory category) {
+    public void addCategoryToSchedule(Schedule schedule, ScheduleCategory scheduleCategory) {
         var scheduleEntity = ScheduleMapper.toScheduleEntity(schedule);
-        var subCategoryEntity = SubCategoryMapper.toSubCategoryEntity(category.getCategory());
+        var categoryEntity = CategoryMapper.toCategoryEntity(scheduleCategory.value());
 
         var scheduleCategoryEntity = new ScheduleCategoryEntity(
                 UUID.randomUUID(),
-                category.isMandatory(),
-                subCategoryEntity,
+                scheduleCategory.isMandatory(),
+                categoryEntity,
                 scheduleEntity
         );
 
@@ -81,12 +81,12 @@ public class PostgresScheduleRepository implements ScheduleRepository {
     }
 
     @Override
-    public void removeCategoryFromSchedule(Schedule schedule, ScheduleCategory category) {
-        var subCategory = category.getCategory();
+    public void removeCategoryFromSchedule(Schedule schedule, ScheduleCategory scheduleCategory) {
+        var category = scheduleCategory.value();
 
         var scheduleCategoryEntityOptional = jpaScheduleCategoryRepository.findByScheduleEntityAndCategoryEntity(
                 ScheduleMapper.toScheduleEntity(schedule),
-                SubCategoryMapper.toSubCategoryEntity(subCategory)
+                CategoryMapper.toCategoryEntity(category)
         );
 
         scheduleCategoryEntityOptional.ifPresent(jpaScheduleCategoryRepository::delete);

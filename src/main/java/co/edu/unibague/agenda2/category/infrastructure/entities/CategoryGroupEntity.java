@@ -1,6 +1,9 @@
 package co.edu.unibague.agenda2.category.infrastructure.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,17 +16,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "\"Sub_Category\"")
-public class SubCategoryEntity {
+@Table(name = "\"Category_Group\"")
+public class CategoryGroupEntity {
 
     @Id
-    @Column(name = "sub_category_id")
+    @Column(name = "category_group_id")
     private UUID id;
 
     @Column(name = "name", unique = true, length = 120)
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", updatable = false)
-    private CategoryEntity categoryEntity;
 }

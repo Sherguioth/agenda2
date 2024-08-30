@@ -1,8 +1,8 @@
 package co.edu.unibague.agenda2.user.application;
 
 
-import co.edu.unibague.agenda2.category.domain.SubCategory;
-import co.edu.unibague.agenda2.category.domain.SubCategoryRepository;
+import co.edu.unibague.agenda2.category.domain.Category;
+import co.edu.unibague.agenda2.category.domain.CategoryRepository;
 import co.edu.unibague.agenda2.role.domain.Role;
 import co.edu.unibague.agenda2.role.domain.RoleRepository;
 import co.edu.unibague.agenda2.shared.domain.Id;
@@ -15,13 +15,13 @@ public class UserUpdater implements UpdateUser {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final SubCategoryRepository subCategoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public UserUpdater(UserRepository userRepository, RoleRepository roleRepository,
-                       SubCategoryRepository subCategoryRepository) {
+                       CategoryRepository categoryRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.subCategoryRepository = subCategoryRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -37,10 +37,10 @@ public class UserUpdater implements UpdateUser {
     @Override
     public void addCategoryToUser(String userId, String categoryName, boolean isAnExpert) {
         var optionalUser = userRepository.findById(new Id(userId));
-        var optionalSubCategory = subCategoryRepository.findByName(categoryName);
+        var optionalCategory = categoryRepository.findByName(categoryName);
 
         User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
-        SubCategory category = optionalSubCategory.orElseThrow(() -> new RuntimeException("SubCategory not found"));
+        Category category = optionalCategory.orElseThrow(() -> new RuntimeException("Category not found"));
 
         var userCategory = new UserCategory(category, isAnExpert);
         user.addCategory(userCategory);
@@ -49,8 +49,8 @@ public class UserUpdater implements UpdateUser {
 
     @Override
     public void removeCategoryFromUser(String userId, String categoryName) {
-        var subCategoryOptional = subCategoryRepository.findByName(categoryName);
-        SubCategory category = subCategoryOptional.orElseThrow(() -> new RuntimeException("SubCategory not found"));
+        var categoryOptional = categoryRepository.findByName(categoryName);
+        Category category = categoryOptional.orElseThrow(() -> new RuntimeException("Category not found"));
 
         var optionalUser = userRepository.findById(new Id(userId));
         User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
@@ -59,7 +59,7 @@ public class UserUpdater implements UpdateUser {
                 .orElseThrow(() -> new RuntimeException("UserCategory not found"));
 
         var userCategory = userCategories.value().stream()
-                .filter(userCat -> userCat.getCategory().getId().equals(category.getId()))
+                .filter(userCat -> userCat.value().getId().equals(category.getId()))
                 .findFirst().orElseThrow(() -> new RuntimeException("UserCategory not found"));
 
         user.removeCategory(userCategory);

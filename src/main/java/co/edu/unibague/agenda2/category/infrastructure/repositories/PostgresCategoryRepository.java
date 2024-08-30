@@ -3,7 +3,6 @@ package co.edu.unibague.agenda2.category.infrastructure.repositories;
 import co.edu.unibague.agenda2.category.domain.Category;
 import co.edu.unibague.agenda2.category.domain.CategoryRepository;
 import co.edu.unibague.agenda2.category.infrastructure.entities.CategoryMapper;
-import co.edu.unibague.agenda2.shared.domain.Id;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class PostgresCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public Optional<Category> findById(Id id) {
-        return jpaRepository.findById(id.value()).map(CategoryMapper::toDomainCategory);
+    public Optional<Category> findByName(String name) {
+        return jpaRepository.findByName(name).map(CategoryMapper::toDomainCategory);
     }
 }

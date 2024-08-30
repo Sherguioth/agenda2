@@ -8,14 +8,16 @@ import java.util.UUID;
 public class Category {
     private final Id categoryId;
     private final CategoryName categoryName;
+    private final CategoryGroup father;
 
-    public Category(String  id, String name) {
+    public Category(String id, String name, CategoryGroup categoryGroup) {
         this.categoryId = new Id(id);
         this.categoryName = new CategoryName(name);
+        this.father = categoryGroup;
     }
 
-    public static Category createCategory(String  id, String name) {
-        return new Category(id, name);
+    public static Category createCategory(String id, String name, CategoryGroup categoryGroup) {
+        return new Category(id, name, categoryGroup);
     }
 
     public UUID getId() {
@@ -24,5 +26,9 @@ public class Category {
 
     public String getName() {
         return categoryName.value();
+    }
+
+    public CategoryGroup getCategoryGroup() {
+        return father;
     }
 }

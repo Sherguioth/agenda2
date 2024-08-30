@@ -1,6 +1,6 @@
 package co.edu.unibague.agenda2.user.infrastructure.entities;
 
-import co.edu.unibague.agenda2.category.infrastructure.entities.SubCategoryEntity;
+import co.edu.unibague.agenda2.category.infrastructure.entities.CategoryEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +30,6 @@ public class UserCategoryEntity {
 
     @ManyToOne
     @JoinColumn(name = "category_id", updatable = false)
-    private SubCategoryEntity categoryEntity;
+    private CategoryEntity categoryEntity;
 
 }

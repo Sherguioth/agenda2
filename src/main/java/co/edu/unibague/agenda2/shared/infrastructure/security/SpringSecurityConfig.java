@@ -64,10 +64,10 @@ public class SpringSecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/api/appointments/user/**").authenticated();
                     http.requestMatchers(HttpMethod.PUT, "/api/appointments").authenticated();
                     http.requestMatchers(HttpMethod.DELETE, "/api/appointments/**").authenticated();
+                    http.requestMatchers(HttpMethod.POST, "/api/categoryGroups").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.GET, "/api/categoryGroups").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.POST, "/api/categories").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/api/categories").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/api/subcategories").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/api/subcategories").hasAnyRole("DEVELOPER", "ADMIN");
 
                     // Anyone else endpoint
                     http.anyRequest().denyAll();

@@ -1,9 +1,6 @@
 package co.edu.unibague.agenda2.category.infrastructure.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +22,8 @@ public class CategoryEntity {
 
     @Column(name = "name", unique = true, length = 120)
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "category_group_id", updatable = false)
+    private CategoryGroupEntity categoryGroupEntity;
 }
